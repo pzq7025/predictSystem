@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jobBorad</title>
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/style_default.css">
+    <link rel="stylesheet" href="css/bootstrap.css"> -->
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div class="overlay"></div>
+
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       jobBorad
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="to_dis()"><i class="fa fa-fw fa-home"></i> 数据展示</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> 数据分析 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="dropdown-header">Dropdown</li>
+                        <li><a href="#" onclick="to_pre()">数据预测</a></li>
+                        <li><a href="#" onclick="to_local()">本站数据</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+          </button>
+            <div id="data_dis" class="container-fluid" style="width: 1300px">
+                <div class="row" style="margin: 30px;">
+                    <div class="col-lg-4 bg-white has-shadow" style="margin-right: 15px;width: 31%;height: 80px">城市数</div>
+                    <div class="col-lg-4 bg-white has-shadow" style="margin-left: 10px;margin-right: 10px;width: 31%;height: 80px">行业数</div>
+                    <div class="col-lg-4 bg-white has-shadow" style="margin-left: 15px;width: 31%;height: 80px">岗位数</div>
+                </div>
+                <div class="row" style="margin: 30px;">
+                    <div id="city_pie" class="col-lg-4 bg-white has-shadow" style="width: 40%;height:400px;"></div>
+                    <div class="col-md-2 " style="width: 2%;height:400px;"></div>
+                    <div id="city_wage" class="col-lg-6 bg-white has-shadow" style="width: 55%;height:400px;"></div>
+                </div>
+                <div class="row" style="margin: 30px;">
+                    <div id="industry_choice" class="col-md-3 bg-white has-shadow" style="margin-right: 15px;width: 22%;height:300px;">
+                        <h3>行业选择器</h3>
+                    </div>
+                    <div class="col-md-6 bg-white has-shadow" style="margin-left: 7px;margin-right: 7px;width: 50%;height:600px;">
+                        <h3>地图</h3>
+                    </div>
+                    <div class="col-md-3  col-12">
+                        <div id="word_colud" class="d-flex bg-white has-shadow" style="margin-bottom: 10px;width: 100%;height:295px;">
+                            <h3>词云</h3>
+                        </div>
+                        <div id="word_line" class="d-flex bg-white has-shadow" style="margin-top: 10px;width: 100%;height:295px;">
+                            <h3>词频柱形图</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="data_predict" class="container" style="display:none;width: 1300px">
+                <h3>数据预测</h3>
+            </div>
+            <div id="data_local" class="container" style="display:none;width: 1300px">
+                <h3>本站数据</h3>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+        <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var trigger = $('.hamburger'),
+                    overlay = $('.overlay'),
+                    isClosed = false;
+
+                trigger.click(function() {
+                    hamburger_cross();
+                });
+
+                function hamburger_cross() {
+
+                    if (isClosed == true) {
+                        overlay.hide();
+                        trigger.removeClass('is-open');
+                        trigger.addClass('is-closed');
+                        isClosed = false;
+                    } else {
+                        overlay.show();
+                        trigger.removeClass('is-closed');
+                        trigger.addClass('is-open');
+                        isClosed = true;
+                    }
+                }
+
+                $('[data-toggle="offcanvas"]').click(function() {
+                    $('#wrapper').toggleClass('toggled');
+                });
+            });
+
+            function to_dis() {
+                document.getElementById('data_dis').style.display = "block";
+                document.getElementById('data_predict').style.display = "none";
+                document.getElementById('data_local').style.display = "none";
+            }
+
+            function to_pre() {
+                document.getElementById('data_dis').style.display = "none";
+                document.getElementById('data_predict').style.display = "block";
+                document.getElementById('data_local').style.display = "none";
+            }
+
+            function to_local() {
+                document.getElementById('data_dis').style.display = "none";
+                document.getElementById('data_predict').style.display = "none";
+                document.getElementById('data_local').style.display = "block";
+            }
+        </script>
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var city_pie = echarts.init(document.getElementById('city_pie'));
+
+            var data = genData(5);
+
+            var city_pie_option = {
+                title: {
+                    text: '城市岗位数量占比',
+                    subtext: '纯属虚构',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    type: 'scroll',
+                    orient: 'vertical',
+                    right: 10,
+                    top: 20,
+                    bottom: 20,
+                    data: data.legendData,
+
+                    selected: data.selected
+                },
+                series: [{
+                    name: '姓名',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['40%', '50%'],
+                    data: data.seriesData,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+            };
+
+            function genData(count) {
+                var nameList = [
+                    '北京', '上海', '杭州', '广州', '深圳'
+                ];
+                var legendData = [];
+                var seriesData = [];
+                var selected = {};
+                for (var i = 0; i < count; i++) {
+                    name = makeWord(2, 1);
+                    legendData.push(name);
+                    seriesData.push({
+                        name: name,
+                        value: Math.round(Math.random() * 100000)
+                    });
+                    selected[name] = i < 6;
+                }
+
+                return {
+                    legendData: legendData,
+                    seriesData: seriesData,
+                    selected: selected
+                };
+
+                function makeWord(max, min) {
+                    var nameLen = Math.ceil(Math.random() * max + min);
+                    var name = [];
+                    for (var i = 0; i < nameLen; i++) {
+                        name.push(nameList[Math.round(Math.random() * nameList.length - 1)]);
+                    }
+                    return name.join('');
+                }
+            }
+
+            // 使用刚指定的配置项和数据显示图表。
+            city_pie.setOption(city_pie_option);
+        </script>
+        <script>
+            // 基于准备好的dom，初始化echarts实例
+            var city_wage = echarts.init(document.getElementById('city_wage'));
+            var city_wage_option = {
+                legend: {},
+                tooltip: {},
+                dataset: {
+                    dimensions: ['product', '2015', '2016', '2017'],
+                    source: [{
+                        product: 'Matcha Latte',
+                        '2015': 43.3,
+                        '2016': 85.8,
+                        '2017': 93.7
+                    }, {
+                        product: 'Milk Tea',
+                        '2015': 83.1,
+                        '2016': 73.4,
+                        '2017': 55.1
+                    }, {
+                        product: 'Cheese Cocoa',
+                        '2015': 86.4,
+                        '2016': 65.2,
+                        '2017': 82.5
+                    }, {
+                        product: 'Walnut Brownie',
+                        '2015': 72.4,
+                        '2016': 53.9,
+                        '2017': 39.1
+                    }]
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {},
+                // Declare several bar series, each will be mapped
+                // to a column of dataset.source by default.
+                series: [{
+                    type: 'bar'
+                }, {
+                    type: 'bar'
+                }, {
+                    type: 'bar'
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            city_wage.setOption(city_wage_option);
+        </script>
+</body>
+
+</html>
