@@ -11,7 +11,7 @@
     <!-- <link rel="stylesheet" href="css/style_default.css">
     <link rel="stylesheet" href="css/bootstrap.css"> -->
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
-
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 </head>
 
 <body>
@@ -28,16 +28,22 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" onclick="to_dis()"><i class="fa fa-fw fa-home"></i> 数据展示</a>
+                    <a href="#" onclick="to_dis()"><i class="fa fa-fw fa-home"></i> 数据分析</a>
                 </li>
-                <li class="dropdown">
+                <li>
+                    <a href="#" onclick="to_pre()"><i class="fa fa-fw fa-plus"></i> 数据预测</a>
+                </li>
+                <li>
+                    <a href="#" onclick="to_local()"><i class="fa fa-fw fa-home"></i> XXX</a>
+                </li>
+                <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> 数据分析 <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li class="dropdown-header">Dropdown</li>
                         <li><a href="#" onclick="to_pre()">数据预测</a></li>
                         <li><a href="#" onclick="to_local()">本站数据</a></li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </nav>
         <!-- /#sidebar-wrapper -->
@@ -49,220 +55,1010 @@
             <span class="hamb-middle"></span>
             <span class="hamb-bottom"></span>
           </button>
-            <div id="data_dis" class="container-fluid" style="width: 1300px">
-                <div class="row" style="margin: 30px;">
-                    <div class="col-lg-4 bg-white has-shadow" style="margin-right: 15px;width: 31%;height: 80px">城市数</div>
+            <!--数据分析  -->
+            <div id="data_dis" class="container" style="width: 1300px">
+                <div class="row" style="width:1150px;margin-left:45px;">
+                    <!-- <div class="col-lg-4 bg-white has-shadow" style="margin-right: 15px;width: 31%;height: 80px">城市数</div>
                     <div class="col-lg-4 bg-white has-shadow" style="margin-left: 10px;margin-right: 10px;width: 31%;height: 80px">行业数</div>
-                    <div class="col-lg-4 bg-white has-shadow" style="margin-left: 15px;width: 31%;height: 80px">岗位数</div>
-                </div>
-                <div class="row" style="margin: 30px;">
-                    <div id="city_pie" class="col-lg-4 bg-white has-shadow" style="width: 40%;height:400px;"></div>
-                    <div class="col-md-2 " style="width: 2%;height:400px;"></div>
-                    <div id="city_wage" class="col-lg-6 bg-white has-shadow" style="width: 55%;height:400px;"></div>
-                </div>
-                <div class="row" style="margin: 30px;">
-                    <div id="industry_choice" class="col-md-3 bg-white has-shadow" style="margin-right: 15px;width: 22%;height:300px;">
-                        <h3>行业选择器</h3>
+                    <div class="col-lg-4 bg-white has-shadow" style="margin-left: 15px;width: 31%;height: 80px">岗位数</div> -->
+                    <div class="row bg-white has-shadow" style="height:120px;">
+                        <!-- Item -->
+                        <div class="col-md-4">
+                            <div class="item d-flex align-items-center">
+                                <!-- <div class="icon bg-red"><i class="icon-padnote"></i></div> -->
+                                <div class="icon bg-red"><img style="width: 40px;" src="./fonts/city.svg"></div>
+                                <div class="title"><span>City<br>Num</span>
+
+                                </div>
+                                <div class="number"><strong>70</strong></div>
+                            </div>
+                        </div>
+                        <!-- Item -->
+                        <div class="col-md-4">
+                            <div class="item d-flex align-items-center">
+                                <div class="icon bg-green"><img style="width: 40px;" src="./fonts/industry.svg"></i>
+                                </div>
+                                <div class="title"><span>Industry<br>Num</span>
+
+                                </div>
+                                <div class="number"><strong>40</strong></div>
+                            </div>
+                        </div>
+                        <!-- Item -->
+                        <div class="col-md-4">
+                            <div class="item_last d-flex align-items-center">
+                                <div class="icon bg-orange"><img style="width: 40px;" src="./fonts/job.svg"></i>
+                                </div>
+                                <div class="title"><span>Job<br>Num</span>
+
+                                </div>
+                                <div class="number"><strong>50</strong></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6 bg-white has-shadow" style="margin-left: 7px;margin-right: 7px;width: 50%;height:600px;">
-                        <h3>地图</h3>
+                </div>
+                <div class="row" style="margin: 30px;">
+                    <div id="city_pie" class="col-lg-4 bg-white has-shadow" style="width: 30%;height:300px;">城市岗位数量占比</div>
+                    <div class="col-md-2 " style="width: 1%;height:300px;"></div>
+                    <div id="city_wage" class="col-lg-6 bg-white has-shadow" style="width: 65%;height:300px;">城市平均薪资</div>
+                </div>
+                <div class="row" style="margin: 30px;">
+                    <div id="industry_pie" class="col-lg-4 bg-white has-shadow" style="width: 30%;height:300px;">行业岗位数量占比</div>
+                    <div class="col-md-2 " style="width: 1%;height:300px;"></div>
+                    <div id="industry_wage" class="col-lg-6 bg-white has-shadow" style="width: 65%;height:300px;">行业平均薪资</div>
+                </div>
+                <div class="row" style="margin: 30px;">
+                    <div id="industry_choice" class="col-md-3 bg-white has-shadow" style="margin-right: 15px;width: 22%;height:400px;">
+                        <p>请输入查询的行业名</p>
+                        <input class="cityinput" id="city_select_1" value="行业名">
+                        <div class="wrapper">
+                            <!-- <p><br/>此处为您显示检索历史</p> 加这句话要调整tagcloud的margin-top: -150px;-->
+                            <div class="tagcloud ">
+                                <a href="#">数据分析师</a>
+                                <a href="#">产品经理</a>
+                                <a href="#">前端工程师</a>
+                                <a href="#">运维</a>
+                                <a href="#">Linux</a>
+                                <a href="#">java工程师</a>
+                            </div>
+                        </div>
+                        <!--wrapper-->
+                    </div>
+                    <div id="map" class="col-md-6 bg-white has-shadow" style="margin-left: 7px;margin-right: 7px;width: 50%;height:600px;">
+
                     </div>
                     <div class="col-md-3  col-12">
-                        <div id="word_colud" class="d-flex bg-white has-shadow" style="margin-bottom: 10px;width: 100%;height:295px;">
+                        <div id="word_colud" class="d-flex bg-white has-shadow" style="width: 100%;height:300px;">
                             <h3>词云</h3>
+                            <!-- <div class="wrapper">
+                                <div class="tagcloud ">
+                                    <a href="#">关键词1</a>
+                                    <a href="#">关键词2</a>
+                                    <a href="#">关键词3</a>
+                                    <a href="#">关键词4</a>
+                                    <a href="#">关键词5</a>
+                                    <a href="#">关键词6</a>
+                                </div>
+                            </div> -->
+                            <!--wrapper-->
                         </div>
-                        <div id="word_line" class="d-flex bg-white has-shadow" style="margin-top: 10px;width: 100%;height:295px;">
-                            <h3>词频柱形图</h3>
+                        <div id="industry_word_line" class="d-flex bg-white has-shadow" style="margin-top: 10px;width: 100%;height:290px;">
+                            <h3>行业关键字表</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin: 30px;">
+                    <div id="city_choice" class="col-md-3 bg-white has-shadow" style="width: 21.5%;height:400px;margin-right: 15px;">
+                        <p>请输入查询的城市名</p>
+                        <input class="cityinput" id="industry_select_1" value="城市名">
+                        <div class="wrapper">
+                            <div class="tagcloud ">
+                                <a href="#">北京</a>
+                                <a href="#">上海</a>
+                                <a href="#">广州</a>
+                                <a href="#">深圳</a>
+                                <a href="#">杭州</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-2 " style="width: 1%;height:400px;"></div> -->
+                    <div id="industry_wage_compound" class="col-lg-6 bg-white has-shadow" style="width: 75%;height:400px;margin-left: 10px;"></div>
+                </div>
+                <div class="bg-white has-shadow" style="width:1194px;height:400px;margin: 30px;">
+                    <div class="row" style="margin-left: 2px;">
+                        <input class=" col-md-3 " style="width: 225px;margin:10px " id="industry_select_2 " value="城市名 ">
+                        <input class="col-md-3 " style="width: 225px;margin:10px " id="city_select_2 " value="行业名 ">
+                        <div class="col-md-1 dropdown" style="margin:10px ">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                近3天
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="# ">近1天</a></li>
+                                <li><a href="# ">近3天</a></li>
+                                <li><a href="# ">近7天</a></li>
+                                <li><a href="# ">近15天</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-5 ">
+                            <!-- <img style="width: 30px;margin-top: 13px; " src="./fonts/money_line.svg "> -->
+                            <input class=" col-md-3 " style="width: 100px;margin:10px;margin-right: 5px; " value="最低薪资">
+                            <input class=" col-md-3 " style="width: 100px;margin:10px;margin-left: 5px; " value="最高薪资">
+                            <button type="button " class="btn btn-info " style="height:34px;margin:11px; ">
+                                搜索
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive " style="height: 300px;">
+                            <table class="table table-hover " style="height: 300px">
+                                <thead class="text-primary ">
+                                    <tr>
+                                        <th>
+                                            ID
+                                        </th>
+                                        <th>
+                                            Job
+                                        </th>
+                                        <th>
+                                            Company
+                                        </th>
+                                        <th>
+                                            City
+                                        </th>
+                                        <th>
+                                            education
+                                        </th>
+                                        <th>
+                                            Salary
+                                        </th>
+                                        <th>
+                                            time
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            JAVA开发工程师
+                                        </td>
+                                        <td>
+                                            北京猎影商务信息咨询有限公司
+                                        </td>
+                                        <td>
+                                            北京
+                                        </td>
+                                        <td>
+                                            大专
+                                        </td>
+                                        <td>
+                                            $36,738
+                                        </td>
+                                        <td>
+                                            6月30日
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="data_predict" class="container" style="display:none;width: 1300px">
-                <h3>数据预测</h3>
-            </div>
-            <div id="data_local" class="container" style="display:none;width: 1300px">
-                <h3>本站数据</h3>
-            </div>
-            <!-- /#page-content-wrapper -->
-
         </div>
-        <!-- /#wrapper -->
+        <!-- 数据预测 -->
+        <div id="data_predict" class="container" style="display:none;width: 1300px">
+            <div class="row" style="margin: 30px;">
+                <div id="industry_predict_choice" class="col-lg-4 bg-white has-shadow" style="width: 25%;height:400px;">
+                    <p>请输入查询的行业名</p>
+                    <input class="cityinput" id="industry_select_2" value="行业名">
+                    <div class="wrapper">
+                        <div class="tagcloud " style="margin-left: -100px;">
+                            <a href="#">数据分析师</a>
+                            <a href="#">产品经理</a>
+                            <a href="#">前端工程师</a>
+                            <a href="#">运维</a>
+                            <a href="#">Linux</a>
+                            <a href="#">java工程师</a>
+                        </div>
+                    </div>
+                    <!--wrapper-->
+                </div>
+                <div class="col-md-2 " style="width: 2%;height:400px;"></div>
+                <div id="industry_predict_line" class="col-lg-6 bg-white has-shadow" style="width: 800px;height:400px;">折线图</div>
+            </div>
+            <div class="row" style="margin: 30px;">
+                <div id="city_predict_choice" class="col-lg-4 bg-white has-shadow" style="width: 25%;height:400px;">
+                    <p>请输入查询的城市名</p>
+                    <input class="cityinput" id="city_select_2" value="城市名">
+                    <div class="wrapper">
+                        <div class="tagcloud " style="margin-left: -100px;">
+                            <a href="#">北京</a>
+                            <a href="#">上海</a>
+                            <a href="#">广州</a>
+                            <a href="#">深圳</a>
+                            <a href="#">杭州</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 " style="width: 2%;height:400px;"></div>
+                <div id="city_predict_line" class="col-lg-6 bg-white has-shadow" style="width: 800px;height:400px;">折线图</div>
+            </div>
+        </div>
+        <div id="data_local" class="container" style="display:none;width: 1300px">
+            <h3>本站数据</h3>
+        </div>
+        <!-- /#page-content-wrapper -->
 
-        <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-        <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                var trigger = $('.hamburger'),
-                    overlay = $('.overlay'),
-                    isClosed = false;
+    </div>
+    <!-- /#wrapper -->
 
-                trigger.click(function() {
-                    hamburger_cross();
-                });
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+    <script src="./js/map.js"></script>
+    <script src="./js/tagcloud.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="dist/echarts.js"></script>
+    <script src="map/js/china.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var trigger = $('.hamburger'),
+                overlay = $('.overlay'),
+                isClosed = false;
 
-                function hamburger_cross() {
-
-                    if (isClosed == true) {
-                        overlay.hide();
-                        trigger.removeClass('is-open');
-                        trigger.addClass('is-closed');
-                        isClosed = false;
-                    } else {
-                        overlay.show();
-                        trigger.removeClass('is-closed');
-                        trigger.addClass('is-open');
-                        isClosed = true;
-                    }
-                }
-
-                $('[data-toggle="offcanvas"]').click(function() {
-                    $('#wrapper').toggleClass('toggled');
-                });
+            trigger.click(function() {
+                hamburger_cross();
             });
 
-            function to_dis() {
-                document.getElementById('data_dis').style.display = "block";
-                document.getElementById('data_predict').style.display = "none";
-                document.getElementById('data_local').style.display = "none";
+            function hamburger_cross() {
+
+                if (isClosed == true) {
+                    overlay.hide();
+                    trigger.removeClass('is-open');
+                    trigger.addClass('is-closed');
+                    isClosed = false;
+                } else {
+                    overlay.show();
+                    trigger.removeClass('is-closed');
+                    trigger.addClass('is-open');
+                    isClosed = true;
+                }
             }
 
-            function to_pre() {
-                document.getElementById('data_dis').style.display = "none";
-                document.getElementById('data_predict').style.display = "block";
-                document.getElementById('data_local').style.display = "none";
-            }
+            $('[data-toggle="offcanvas"]').click(function() {
+                $('#wrapper').toggleClass('toggled');
+            });
+        });
 
-            function to_local() {
-                document.getElementById('data_dis').style.display = "none";
-                document.getElementById('data_predict').style.display = "none";
-                document.getElementById('data_local').style.display = "block";
-            }
-        </script>
-        <script type="text/javascript">
-            // 基于准备好的dom，初始化echarts实例
-            var city_pie = echarts.init(document.getElementById('city_pie'));
+        function to_dis() {
+            document.getElementById('data_dis').style.display = "block";
+            document.getElementById('data_predict').style.display = "none";
+            document.getElementById('data_local').style.display = "none";
+        }
 
-            var data = genData(5);
+        function to_pre() {
+            document.getElementById('data_dis').style.display = "none";
+            document.getElementById('data_predict').style.display = "block";
+            document.getElementById('data_local').style.display = "none";
+        }
 
-            var city_pie_option = {
-                title: {
-                    text: '城市岗位数量占比',
-                    subtext: '纯属虚构',
-                    left: 'center'
+        function to_local() {
+            document.getElementById('data_dis').style.display = "none";
+            document.getElementById('data_predict').style.display = "none";
+            document.getElementById('data_local').style.display = "block";
+        }
+
+        /*3D标签云*/
+        tagcloud({
+            selector: ".tagcloud", //元素选择器
+            fontsize: 7, //基本字体大小, 单位px
+            radius: 50, //滚动半径, 单位px
+            mspeed: "fast", //滚动最大速度, 取值: slow, normal(默认), fast
+            ispeed: "normal", //滚动初速度, 取值: slow, normal(默认), fast
+            direction: 135, //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+            keep: false //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+        });
+    </script>
+    <!-- <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var city_pie = echarts.init(document.getElementById('city_pie'), 'light');
+        var city_pie_option = {
+            title: {
+                text: '城市岗位数量占比',
+                subtext: '纯属虚构',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                type: 'scroll',
+                orient: 'vertical',
+                right: 10,
+                top: 20,
+                bottom: 20,
+                data: ['北京', '上海', '广州', '深圳', '杭州']
+            },
+            series: [{
+                name: '城市名:',
+                type: 'pie',
+                radius: '55%',
+                center: ['40%', '50%'],
+                data: [{
+                    value: 29201,
+                    name: '北京'
+                }, {
+                    value: 26536,
+                    name: '上海'
+                }, {
+                    value: 26206,
+                    name: '广州'
+                }, {
+                    value: 24952,
+                    name: '深圳'
+                }, {
+                    value: 15723,
+                    name: '杭州'
+                }],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        city_pie.setOption(city_pie_option);
+    </script> -->
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var city_wage = echarts.init(document.getElementById('city_wage'), 'light');
+        var city_wage_option = {
+            legend: {},
+            tooltip: {},
+            dataset: {
+                dimensions: ['cityName', '平均薪资', '中位薪资'],
+                source: [{
+                    cityName: '北京',
+                    '平均薪资': 2600,
+                    '中位薪资': 3700
+                }, {
+                    cityName: '上海',
+                    '平均薪资': 2600,
+                    '中位薪资': 3700
+                }, {
+                    cityName: '杭州',
+                    '平均薪资': 2600,
+                    '中位薪资': 3700
+                }, {
+                    cityName: '深圳',
+                    '平均薪资': 2600,
+                    '中位薪资': 3700
+                }]
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {},
+            // Declare several bar series, each will be mapped
+            // to a column of dataset.source by default.
+            series: [{
+                type: 'bar'
+            }, {
+                type: 'bar'
+            }, ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        city_wage.setOption(city_wage_option);
+    </script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var industry_pie = echarts.init(document.getElementById('industry_pie'), 'light');
+        var industry_pie_option = {
+            title: {
+                text: '行业岗位数量占比',
+                subtext: '纯属虚构',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                type: 'scroll',
+                orient: 'vertical',
+                right: 10,
+                top: 20,
+                bottom: 20,
+                data: ['北京', '上海', '广州', '深圳', '杭州']
+            },
+            series: [{
+                name: '城市名:',
+                type: 'pie',
+                radius: '55%',
+                center: ['40%', '50%'],
+                data: [{
+                    value: 29201,
+                    name: '北京'
+                }, {
+                    value: 26536,
+                    name: '上海'
+                }, {
+                    value: 26206,
+                    name: '广州'
+                }, {
+                    value: 24952,
+                    name: '深圳'
+                }, {
+                    value: 15723,
+                    name: '杭州'
+                }],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        industry_pie.setOption(industry_pie_option);
+    </script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var industry_wage = echarts.init(document.getElementById('industry_wage'), 'light');
+        var industry_wage_option = {
+            legend: {},
+            tooltip: {},
+            dataset: {
+                dimensions: ['product', '2015', '2016', '2017'],
+                source: [{
+                    product: 'Matcha Latte',
+                    '2015': 43.3,
+                    '2016': 85.8,
+                    '2017': 93.7
+                }, {
+                    product: 'Milk Tea',
+                    '2015': 83.1,
+                    '2016': 73.4,
+                    '2017': 55.1
+                }, {
+                    product: 'Cheese Cocoa',
+                    '2015': 86.4,
+                    '2016': 65.2,
+                    '2017': 82.5
+                }, {
+                    product: 'Walnut Brownie',
+                    '2015': 72.4,
+                    '2016': 53.9,
+                    '2017': 39.1
+                }]
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {},
+            // Declare several bar series, each will be mapped
+            // to a column of dataset.source by default.
+            series: [{
+                type: 'bar'
+            }, {
+                type: 'bar'
+            }, {
+                type: 'bar'
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        industry_wage.setOption(industry_wage_option);
+    </script>
+    <script type="text/javascript">
+        var mapdata = [{
+            name: "南海诸岛",
+            value: 0
+        }, {
+            name: '北京',
+            value: randomValue()
+        }, {
+            name: '天津',
+            value: randomValue()
+        }, {
+            name: '上海',
+            value: randomValue()
+        }, {
+            name: '重庆',
+            value: randomValue()
+        }, {
+            name: '河北',
+            value: randomValue()
+        }, {
+            name: '河南',
+            value: randomValue()
+        }, {
+            name: '云南',
+            value: randomValue()
+        }, {
+            name: '辽宁',
+            value: randomValue()
+        }, {
+            name: '黑龙江',
+            value: randomValue()
+        }, {
+            name: '湖南',
+            value: randomValue()
+        }, {
+            name: '安徽',
+            value: randomValue()
+        }, {
+            name: '山东',
+            value: randomValue()
+        }, {
+            name: '新疆',
+            value: randomValue()
+        }, {
+            name: '江苏',
+            value: randomValue()
+        }, {
+            name: '浙江',
+            value: randomValue()
+        }, {
+            name: '江西',
+            value: randomValue()
+        }, {
+            name: '湖北',
+            value: randomValue()
+        }, {
+            name: '广西',
+            value: randomValue()
+        }, {
+            name: '甘肃',
+            value: randomValue()
+        }, {
+            name: '山西',
+            value: randomValue()
+        }, {
+            name: '内蒙古',
+            value: randomValue()
+        }, {
+            name: '陕西',
+            value: randomValue()
+        }, {
+            name: '吉林',
+            value: randomValue()
+        }, {
+            name: '福建',
+            value: randomValue()
+        }, {
+            name: '贵州',
+            value: randomValue()
+        }, {
+            name: '广东',
+            value: randomValue()
+        }, {
+            name: '青海',
+            value: randomValue()
+        }, {
+            name: '西藏',
+            value: randomValue()
+        }, {
+            name: '四川',
+            value: randomValue()
+        }, {
+            name: '成都',
+            value: randomValue()
+        }, {
+            name: '宁夏',
+            value: randomValue()
+        }, {
+            name: '海南',
+            value: randomValue()
+        }, {
+            name: '台湾',
+            value: randomValue()
+        }, {
+            name: '香港',
+            value: randomValue()
+        }, {
+            name: '澳门',
+            value: randomValue()
+        }]
+        var mapChart = echarts.init(document.getElementById('map'));
+
+        function randomValue() {
+            return Math.round(Math.random() * 1000);
+        }
+        mapoption = {
+            tooltip: {
+                formatter: function(params, ticket, callback) {
+                        return params.seriesName + '<br />' + params.name + '：' + params.value
+                    } //数据格式化
+            },
+            visualMap: {
+                min: 0,
+                max: 1500,
+                left: 'left',
+                top: 'bottom',
+                text: ['高', '低'], //取值范围的文字
+                inRange: {
+                    color: ['#e0ffff', '#006edd'] //取值范围的颜色
                 },
-                tooltip: {
-                    trigger: 'item',
-                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                show: true //图注
+            },
+            geo: {
+                map: 'china',
+                roam: false, //不开启缩放和平移
+                zoom: 1.23, //视角缩放比例
+                label: {
+                    normal: {
+                        show: true,
+                        fontSize: '10',
+                        color: 'rgba(0,0,0,0.7)'
+                    }
                 },
-                legend: {
-                    type: 'scroll',
-                    orient: 'vertical',
-                    right: 10,
-                    top: 20,
-                    bottom: 20,
-                    data: data.legendData,
-
-                    selected: data.selected
-                },
-                series: [{
-                    name: '姓名',
-                    type: 'pie',
-                    radius: '55%',
-                    center: ['40%', '50%'],
-                    data: data.seriesData,
+                itemStyle: {
+                    normal: {
+                        borderColor: 'rgba(0, 0, 0, 0.2)'
+                    },
                     emphasis: {
-                        itemStyle: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }
+                        areaColor: '#F3B329', //鼠标选择区域颜色
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        shadowBlur: 20,
+                        borderWidth: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
-                }]
-            };
-
-            function genData(count) {
-                var nameList = [
-                    '北京', '上海', '杭州', '广州', '深圳'
-                ];
-                var legendData = [];
-                var seriesData = [];
-                var selected = {};
-                for (var i = 0; i < count; i++) {
-                    name = makeWord(2, 1);
-                    legendData.push(name);
-                    seriesData.push({
-                        name: name,
-                        value: Math.round(Math.random() * 100000)
-                    });
-                    selected[name] = i < 6;
                 }
+            },
+            series: [{
+                name: '岗位数量',
+                type: 'map',
+                geoIndex: 0,
+                data: mapdata
+            }]
+        };
+        mapChart.setOption(mapoption);
+        mapChart.on('click', function(params) {
+            alert(params.name);
+        });
 
-                return {
-                    legendData: legendData,
-                    seriesData: seriesData,
-                    selected: selected
-                };
-
-                function makeWord(max, min) {
-                    var nameLen = Math.ceil(Math.random() * max + min);
-                    var name = [];
-                    for (var i = 0; i < nameLen; i++) {
-                        name.push(nameList[Math.round(Math.random() * nameList.length - 1)]);
+        /*  setTimeout(function () {
+              myChart.setOption({
+                  series : [
+                      {
+                          name: '信息量',
+                          type: 'map',
+                          geoIndex: 0,
+                          data:dataList
+                      }
+                  ]
+              });
+          },1000)*/
+    </script>
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        var city_word_line = echarts.init(document.getElementById('city_word_line'), 'light');
+        var city_word_line_option = {
+            title: {
+                text: '各关键字在招聘中的出现次数',
+                left: 'center',
+                align: 'right'
+            },
+            grid: {
+                // left: '1%',
+                // height: '75%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['关键字1', '关键字2', '关键字3', '关键字4', '关键字5', '关键字6', '关键字7', '关键字8', '关键字9', '关键字10'],
+                axisLabel: {
+                    interval: 0,
+                    rotate: 60
+                }
+            },
+            yAxis: {
+                name: '次数',
+                type: 'value',
+                max: 200
+            },
+            series: [{
+                data: [178, 159, 146, 142, 137, 134, 130, 74, 50, 22],
+                type: 'bar'
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        city_word_line.setOption(city_word_line_option);
+    </script>
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        var industry_word_line = echarts.init(document.getElementById('industry_word_line'), 'light');
+        var industry_word_line_option = {
+            title: {
+                text: '各关键字在招聘中的出现次数',
+                left: 'center',
+                align: 'right'
+            },
+            grid: {
+                left: '1%',
+                height: '75%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['关键字1', '关键字2', '关键字3', '关键字4', '关键字5', '关键字6', '关键字7', '关键字8', '关键字9', '关键字10'],
+                axisLabel: {
+                    interval: 0,
+                    rotate: 60
+                }
+            },
+            yAxis: {
+                name: '次数',
+                type: 'value',
+                max: 200
+            },
+            series: [{
+                data: [178, 159, 146, 142, 137, 134, 130, 74, 50, 22],
+                type: 'bar'
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        industry_word_line.setOption(industry_word_line_option);
+    </script>
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        var industry_predict_line = echarts.init(document.getElementById('industry_predict_line'), 'light');
+        var industry_predict_line_option = {
+            title: {
+                text: '预测薪资和预测数量折线图',
+                subtext: '纯属虚构',
+                left: 'center',
+                align: 'right'
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    animation: false,
+                    label: {
+                        backgroundColor: '#505765'
                     }
-                    return name.join('');
                 }
-            }
-
-            // 使用刚指定的配置项和数据显示图表。
-            city_pie.setOption(city_pie_option);
-        </script>
-        <script>
-            // 基于准备好的dom，初始化echarts实例
-            var city_wage = echarts.init(document.getElementById('city_wage'));
-            var city_wage_option = {
-                legend: {},
-                tooltip: {},
-                dataset: {
-                    dimensions: ['product', '2015', '2016', '2017'],
-                    source: [{
-                        product: 'Matcha Latte',
-                        '2015': 43.3,
-                        '2016': 85.8,
-                        '2017': 93.7
-                    }, {
-                        product: 'Milk Tea',
-                        '2015': 83.1,
-                        '2016': 73.4,
-                        '2017': 55.1
-                    }, {
-                        product: 'Cheese Cocoa',
-                        '2015': 86.4,
-                        '2016': 65.2,
-                        '2017': 82.5
-                    }, {
-                        product: 'Walnut Brownie',
-                        '2015': 72.4,
-                        '2016': 53.9,
-                        '2017': 39.1
-                    }]
+            },
+            legend: {
+                data: ['薪资', '数量'],
+                left: 10
+            },
+            dataZoom: [{
+                show: true,
+                realtime: true,
+                start: 65,
+                end: 85
+            }, {
+                type: 'inside',
+                realtime: true,
+                start: 65,
+                end: 85
+            }],
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                axisLine: {
+                    onZero: false
                 },
-                xAxis: {
-                    type: 'category'
+                data: [
+                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                ]
+            }],
+            yAxis: [{
+                name: '薪资(元)',
+                type: 'value',
+                max: 30000
+            }, {
+                name: '数量',
+                max: 200,
+                type: 'value'
+            }],
+            series: [{
+                name: '薪资',
+                type: 'line',
+                data: [
+                    17870, 6507, 21245, 12818, 19352, 10715, 7270, 17915, 22833, 12027, 24587, 9229, 7938, 9102, 8456, 29845, 13169, 6650, 8860, 17846, 12809, 23902, 22048, 12531, 25484, 17772, 19309, 25684, 13881, 7720
+                ]
+            }, {
+                name: '数量',
+                type: 'line',
+                yAxisIndex: 1,
+                data: [
+                    65, 90, 98, 193, 41, 183, 169, 22, 15, 12, 128, 141, 141, 151, 38, 193, 150, 48, 177, 45, 129, 111, 83, 49, 77, 77, 164, 126, 46, 15
+                ]
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        industry_predict_line.setOption(industry_predict_line_option);
+    </script>
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        var city_predict_line = echarts.init(document.getElementById('city_predict_line'), 'light');
+        var city_predict_line_option = {
+            title: {
+                text: '岗位数量和平均薪资折线图',
+                subtext: '纯属虚构',
+                left: 'center',
+                align: 'right'
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    animation: false,
+                    label: {
+                        backgroundColor: '#505765'
+                    }
+                }
+            },
+            legend: {
+                data: ['流量', '降雨量'],
+                left: 10
+            },
+            dataZoom: [{
+                show: true,
+                realtime: true,
+                start: 65,
+                end: 85
+            }, {
+                type: 'inside',
+                realtime: true,
+                start: 65,
+                end: 85
+            }],
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                axisLine: {
+                    onZero: false
                 },
-                yAxis: {},
-                // Declare several bar series, each will be mapped
-                // to a column of dataset.source by default.
-                series: [{
-                    type: 'bar'
-                }, {
-                    type: 'bar'
-                }, {
-                    type: 'bar'
-                }]
-            };
-            // 使用刚指定的配置项和数据显示图表。
-            city_wage.setOption(city_wage_option);
-        </script>
+                data: [
+                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                ]
+            }],
+            yAxis: [{
+                name: '薪资(元)',
+                type: 'value',
+                max: 30000
+            }, {
+                name: '数量',
+                max: 200,
+                type: 'value'
+            }],
+            series: [{
+                name: '薪资',
+                type: 'line',
+                data: [
+                    17870, 6507, 21245, 12818, 19352, 10715, 7270, 17915, 22833, 12027, 24587, 9229, 7938, 9102, 8456, 29845, 13169, 6650, 8860, 17846, 12809, 23902, 22048, 12531, 25484, 17772, 19309, 25684, 13881, 7720
+                ]
+            }, {
+                name: '数量',
+                type: 'line',
+                yAxisIndex: 1,
+                data: [
+                    65, 90, 98, 193, 41, 183, 169, 22, 15, 12, 128, 141, 141, 151, 38, 193, 150, 48, 177, 45, 129, 111, 83, 49, 77, 77, 164, 126, 46, 15
+                ]
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        city_predict_line.setOption(city_predict_line_option);
+    </script>
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        var industry_wage_compound = echarts.init(document.getElementById('industry_wage_compound'), 'light');
+        var industry_wage_compound_option = {
+            title: {
+                text: '城市预测图',
+                subtext: '纯属虚构',
+                left: 'center',
+                align: 'right'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            toolbox: {
+                feature: {
+                    dataView: {
+                        show: true,
+                        readOnly: false
+                    },
+                    magicType: {
+                        show: true,
+                        type: ['line', 'bar']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            legend: {
+                data: ['中位薪资', '平均薪资'],
+                left: 10,
+                top: 0,
+                bottom: 20,
+            },
+            xAxis: [{
+                type: 'category',
+                data: ['行业1', '行业2', '行业3', '行业4', '行业5', '行业6', '行业7', '行业8', '行业9', '行业10'],
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }],
+            yAxis: [{
+                type: 'value',
+                name: '岗位数量',
+                min: 0,
+                max: 1000,
+            }, {
+                type: 'value',
+                name: '平均薪资',
+                min: 5000,
+                max: 30000,
+            }, {
+                type: 'value',
+                name: '中位薪资',
+                min: 5000,
+                max: 30000,
+            }],
+            series: [{
+                name: '岗位数量',
+                type: 'bar',
+                data: [126, 722, 121, 348, 967, 504, 222, 312, 734, 295]
+            }, {
+                name: '平均薪资',
+                type: 'line',
+                yAxisIndex: 1,
+                data: [19891, 22947, 13718, 6789, 13066, 13013, 7828, 16471, 19346, 8180]
+            }, {
+                name: '中位薪资',
+                type: 'line',
+                yAxisIndex: 2,
+                data: [28109, 10427, 23300, 25720, 10319, 25420, 24303, 19816, 8776, 26984]
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        industry_wage_compound.setOption(industry_wage_compound_option);
+    </script>
+    </div>
 </body>
 
 </html>

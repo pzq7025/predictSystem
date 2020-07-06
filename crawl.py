@@ -195,7 +195,7 @@ if __name__ == '__main__':
     t_start_web = time.time()
     loop = asyncio.get_event_loop()
     sem1 = asyncio.Semaphore(100)
-    tasks = [asyncio.ensure_future(download(sem1, url)) for url in urls[:100]]
+    tasks = [asyncio.ensure_future(download(sem1, url)) for url in urls[:10000]]
     tasks = asyncio.gather(*tasks)
     loop.run_until_complete(tasks)
     t_end_web = time.time()
