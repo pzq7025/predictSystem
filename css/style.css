@@ -10,6 +10,17 @@ html {
     background-color: #fff;
 }
 
+input {
+    outline-style: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 7px 14px;
+    width: 225px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Microsoft soft";
+}
+
 .nav .open>a {
     background-color: transparent;
 }
@@ -357,4 +368,323 @@ body a:hover {
 .d-flex {
     display: -ms-flexbox!important;
     display: flex!important;
+}
+
+
+/* 地图部分 */
+
+.demo {
+    width: 220px;
+    margin: 20px auto;
+}
+
+
+/* citySelector */
+
+.citySelector {
+    font: 12px/1.5 tahoma, arial, \5b8b\4f53;
+    background: #fff;
+    text-align: left;
+}
+
+.cityslide {
+    width: 250px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #85BEE5;
+    border-right-color: #3485C0;
+    border-bottom-color: #3485C0;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+    margin-top: -2px;
+}
+
+.cityslide li {
+    list-style: none;
+    overflow: hidden;
+    height: 25px;
+    padding: 4px 5px;
+}
+
+.cityslide li.on {
+    background: #9CD9FF;
+    color: #fff;
+}
+
+.cityslide li b {
+    font-weight: normal;
+}
+
+.cityslide li.empty {
+    background: #fff2e8;
+    color: #666;
+}
+
+.cityslide li.empty em {
+    color: red;
+    font-style: normal;
+}
+
+.cityname {
+    float: left;
+}
+
+.cityspell {
+    float: right;
+}
+
+.cityBox {
+    width: 320px;
+    border: 1px solid #85BEE5;
+    overflow: hidden;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.cityBox ul {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.cityBox ul li {
+    float: left;
+    list-style: none;
+    padding: 2px 4px;
+    border: 1px solid #85BEE5;
+    cursor: pointer;
+    margin-left: 4px;
+    display: inline;
+    background: #E1EFFE;
+}
+
+.cityBox ul li.on {
+    background: #fff;
+    border-bottom-color: #fff;
+    position: relative;
+}
+
+.hide {
+    display: none;
+}
+
+p.tip {
+    color: #666;
+    line-height: 20px;
+    padding: 5px;
+    margin: 0;
+    text-indent: 3px;
+}
+
+.hotCity {
+    border-top: 1px solid #85BEE5;
+    margin-top: -1px;
+    clear: left;
+    overflow: hidden;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    _margin-bottom: 8px;
+}
+
+.cityTab {
+    overflow: hidden;
+}
+
+.cityTab dl {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.cityTab dl dt {
+    float: left;
+    padding-left: 3px;
+    color: #F30;
+    text-indent: 5px;
+    font-family: "Lucida console", "consolas", "courier new";
+    line-height: 22px;
+    font-size: 14px;
+    width: 20px;
+}
+
+.cityTab dl dd {
+    margin-left: 2px;
+    float: left;
+    width: 290px;
+}
+
+.cityTab dl dd a {
+    padding-left: 5px;
+    width: 66px;
+    line-height: 22px;
+    display: inline-block;
+    color: #000;
+    text-decoration: none;
+}
+
+.cityTab dl dd a:hover {
+    text-decoration: underline;
+    color: red
+}
+
+.cityinput {
+    font-size: 12px;
+    padding-left: 2px;
+    background: url(T1EPyLXm0hXXXXXXXX-200-100.png) no-repeat 150px 5px;
+    border: 1px solid #D8D8D8;
+}
+
+
+/* 地图部分结束 */
+
+
+/* 标签云 */
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.wrapper {
+    width: 200px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.wrapper p {
+    padding-top: 150px;
+    line-height: 27px;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+}
+
+.tagcloud {
+    position: relative;
+    margin-top: 65px;
+    margin-left: -13px;
+}
+
+.tagcloud a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    padding: 11px 30px;
+    color: #333;
+    font-size: 16px;
+    border: 1px solid #e6e7e8;
+    border-radius: 18px;
+    background-color: #f2f4f8;
+    text-decoration: none;
+    white-space: nowrap;
+    -o-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    -ms-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    -moz-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    -webkit-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135, Color='#000000')";
+    /*兼容ie7/8*/
+    filter: progid: DXImageTransform.Microsoft.Shadow(color='#969696', Direction=125, Strength=9);
+    /*strength是阴影大小，direction是阴影方位，单位为度，可以为负数，color是阴影颜色 （尽量使用数字）使用IE滤镜实现盒子阴影的盒子必须是行元素或以行元素显示（block或inline-block;）*/
+}
+
+.tagcloud a:hover {
+    color: #3385cf;
+}
+
+
+/* 标签云结束 */
+
+.item {
+    border-right: 1px solid #eee;
+    padding: 15px 0;
+    margin-left: 75px;
+}
+
+.item_last {
+    /* border-right: 1px solid #eee; */
+    padding: 15px 0;
+    margin-left: 75px;
+}
+
+.align-items-center {
+    -ms-flex-align: center!important;
+    align-items: center!important;
+}
+
+.d-flex {
+    display: -ms-flexbox!important;
+    display: flex!important;
+}
+
+.icon {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    min-width: 60px;
+    max-width: 50px;
+    border-radius: 50%;
+}
+
+.bg-red {
+    background: #ff7676 !important;
+    color: #fff;
+}
+
+.bg-green {
+    background: #54e69d !important;
+    color: #fff;
+}
+
+.bg-orange {
+    background: #ffc36d !important;
+    color: #fff;
+}
+
+.title {
+    font-size: 1.1em;
+    font-weight: 300;
+    color: #777;
+    margin: 0 20px;
+}
+
+.number {
+    font-size: 1.8em;
+    font-weight: 300;
+}
+
+.dropdown-menu a {
+    text-decoration: none;
+}
+
+
+/* 表格 */
+
+.card-body {
+    padding-left: 5px;
+    padding-right: 5px;
+    flex: 1 1 auto;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+.text-primary {
+    color: #2196f3;
 }
