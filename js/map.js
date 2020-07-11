@@ -108,6 +108,7 @@ Vcity.allCity = ['北京|beijing|bj', '上海|shanghai|sh', '重庆|chongqing|cq
     '张家界|zhangjiajie|zjj', '舟山|zhoushan|zs', '郑州|zhengzhou|zz', '中卫|zhongwei|zw', '芷江|zhijiang|zj', '湛江|zhanjiang|zj'
 ];
 
+
 /* 正则表达式 筛选中文城市名、拼音、首字母 */
 
 Vcity.regEx = /^([\u4E00-\u9FA5\uf900-\ufa2d]+)\|(\w+)\|(\w)\w*$/i;
@@ -506,7 +507,8 @@ Vcity.CitySelector.prototype = {
     }
 };
 var city_select_1 = new Vcity.CitySelector({ input: 'city_select_1' });
-var industry_select_1 = new Vcity.CitySelector({ input: 'industry_select_1' });
+// var industry_select_1 = new Vcity.CitySelector({ input: 'industry_select_1' });
 var city_select_2 = new Vcity.CitySelector({ input: 'city_select_2' });
-var industry_select_2 = new Vcity.CitySelector({ input: 'industry_select_2' });
+// var industry_select_2 = new Vcity.CitySelector({ input: 'industry_select_2' });
 var city_select_3 = new Vcity.CitySelector({ input: 'city_select_3' });
+// var industry_select_3 = new Vcity.CitySelector({ input: 'industry_select_3' });

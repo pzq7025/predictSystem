@@ -15,7 +15,7 @@ input {
     border: 1px solid #ccc;
     border-radius: 3px;
     padding: 7px 14px;
-    width: 225px;
+    width: 150px;
     font-size: 14px;
     font-weight: 700;
     font-family: "Microsoft soft";
@@ -597,6 +597,20 @@ p.tip {
 
 
 /* 标签云结束 */
+
+.industry_select_1 {
+    font-size: 1em;
+    /* font-family: 仿宋, serif; */
+    width: 105px;
+    height: 35px;
+    /* display: block; */
+    /* margin-left: 10%; */
+    /* opacity: 0.8; */
+    padding: 0.2em;
+    color: #000000;
+    border-radius: 5px;
+    /* background-color: #bed8df; */
+}
 
 .item {
     border-right: 1px solid #eee;
