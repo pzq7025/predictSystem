@@ -34,7 +34,7 @@
                     <a href="#" onclick="to_pre()"><i class="fa fa-fw fa-plus"></i> 数据预测</a>
                 </li>
                 <li>
-                    <a href="#" onclick="to_local()"><i class="fa fa-fw fa-home"></i> XXX</a>
+                    <a href="#" onclick="to_local()"><i class="fa fa-fw fa-home"></i>数据监控</a>
                 </li>
                 <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> 数据分析 <span class="caret"></span></a>
@@ -70,7 +70,7 @@
                                 <div class="title"><span>City<br>Num</span>
 
                                 </div>
-                                <div class="number"><strong>70</strong></div>
+                                <div class="number"><strong>71</strong></div>
                             </div>
                         </div>
                         <!-- Item -->
@@ -81,7 +81,7 @@
                                 <div class="title"><span>Industry<br>Num</span>
 
                                 </div>
-                                <div class="number"><strong>40</strong></div>
+                                <div class="number"><strong>15</strong></div>
                             </div>
                         </div>
                         <!-- Item -->
@@ -92,7 +92,7 @@
                                 <div class="title"><span>Job<br>Num</span>
 
                                 </div>
-                                <div class="number"><strong>50</strong></div>
+                                <div class="number"><strong>49295</strong></div>
                             </div>
                         </div>
                     </div>
@@ -110,16 +110,35 @@
                 <div class="row" style="margin: 30px;">
                     <div id="industry_choice" class="col-md-3 bg-white has-shadow" style="margin-right: 15px;width: 22%;height:400px;">
                         <p>请输入查询的行业名</p>
-                        <input class="cityinput" id="city_select_1" value="行业名">
+                        <input id="industry_select_1" type="text" list="sexlist" class="industry_select_1" value="前端">
+                        <datalist id="sexlist">
+                            <option>前端</option>
+                            <option>后端</option>
+                            <option>运维</option>
+                            <option>算法</option>
+                            <option>产品</option>
+                            <option>运营</option>
+                            <option>设计</option>
+                            <option>销售</option>
+                            <option>人事</option>
+                            <option>物流</option>
+                            <option>市场</option>
+                            <option>金融</option>
+                            <option>医疗健康</option>
+                            <option>高级管理</option>
+                            <option>其他行业</option>
+                        </datalist>
+                        <button type="button" class="btn btn-info" style="width:50px;" onclick="getInWage()">薪资</button>
+                        <button type="button" class="btn btn-info" style="width:70px;" onclick="getInJob()">岗位数</button>
                         <div class="wrapper">
                             <!-- <p><br/>此处为您显示检索历史</p> 加这句话要调整tagcloud的margin-top: -150px;-->
                             <div class="tagcloud ">
-                                <a href="#">数据分析师</a>
-                                <a href="#">产品经理</a>
-                                <a href="#">前端工程师</a>
-                                <a href="#">运维</a>
-                                <a href="#">Linux</a>
-                                <a href="#">java工程师</a>
+                                <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">设计</a>
+                                <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">算法</a>
+                                <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">前端</a>
+                                <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">运维</a>
+                                <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">产品</a>
+                                <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">后端</a>
                             </div>
                         </div>
                         <!--wrapper-->
@@ -150,14 +169,15 @@
                 <div class="row" style="margin: 30px;">
                     <div id="city_choice" class="col-md-3 bg-white has-shadow" style="width: 21.5%;height:400px;margin-right: 15px;">
                         <p>请输入查询的城市名</p>
-                        <input class="cityinput" id="industry_select_1" value="城市名">
+                        <input class="cityinput city_select" id="city_select_1" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                        <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityCompound()">查询</button>
                         <div class="wrapper">
                             <div class="tagcloud ">
-                                <a href="#">北京</a>
-                                <a href="#">上海</a>
-                                <a href="#">广州</a>
-                                <a href="#">深圳</a>
-                                <a href="#">杭州</a>
+                                <a href="javascript:void(0)" onclick="changeInput_city_select_1(this)">北京</a>
+                                <a href="javascript:void(0)" onclick="changeInput_city_select_1(this)">上海</a>
+                                <a href="javascript:void(0)" onclick="changeInput_city_select_1(this)">广州</a>
+                                <a href="javascript:void(0)" onclick="changeInput_city_select_1(this)">深圳</a>
+                                <a href="javascript:void(0)" onclick="changeInput_city_select_1(this)">杭州</a>
                             </div>
                         </div>
                     </div>
@@ -166,24 +186,35 @@
                 </div>
                 <div class="bg-white has-shadow" style="width:1194px;height:400px;margin: 30px;">
                     <div class="row" style="margin-left: 2px;">
-                        <input class=" col-md-3 " style="width: 225px;margin:10px " id="industry_select_2 " value="城市名 ">
-                        <input class="col-md-3 " style="width: 225px;margin:10px " id="city_select_2 " value="行业名 ">
-                        <div class="col-md-1 dropdown" style="margin:10px ">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                近3天
-                              <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="# ">近1天</a></li>
-                                <li><a href="# ">近3天</a></li>
-                                <li><a href="# ">近7天</a></li>
-                                <li><a href="# ">近15天</a></li>
-                            </ul>
-                        </div>
+                        <input class="cityinput col-md-3 " style="width: 225px;height: 35px;font-size: 14px;font-weight: 700;margin:10px " id="city_select_3" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                        <select class="industry_select_3 col-md-3" style="width: 225px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" name="industry_select_3">
+                            <option selected>前端</option>
+                            <option>后端</option>
+                            <option>运维</option>
+                            <option>算法</option>
+                            <option>产品</option>
+                            <option>运营</option>
+                            <option>设计</option>
+                            <option>销售</option>
+                            <option>人事</option>
+                            <option>物流</option>
+                            <option>市场</option>
+                            <option>金融</option>
+                            <option>医疗健康</option>
+                            <option>高级管理</option>
+                            <option>其他行业</option>
+                        </select>
+                        <select class="time_span_select_1 col-md-3" style="width: 125px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" id="time_span_select_1" value="3">
+                            <option value="15">博士</option>
+                            <option value="1">硕士</option>
+                            <option value="3" selected>本科</option>
+                            <option value="7">大专</option>
+                        </select>
+
                         <div class="col-md-5 ">
                             <!-- <img style="width: 30px;margin-top: 13px; " src="./fonts/money_line.svg "> -->
-                            <input class=" col-md-3 " style="width: 100px;margin:10px;margin-right: 5px; " value="最低薪资">
-                            <input class=" col-md-3 " style="width: 100px;margin:10px;margin-left: 5px; " value="最高薪资">
+                            <input class="col-md-3 " style="width: 175px;height:35px;margin:10px;margin-right: 5px;border: 1px solid #D8D8D8;border-radius: 3px;" id="min_salary" value="最低薪资(以k为单位)" onclick="this.value=''">
+                            <input class="col-md-3 " style="width: 175px;height:35px;margin:10px;margin-left: 5px;border: 1px solid #D8D8D8;border-radius: 3px; " id="max_salary" value="最高薪资(以k为单位)" onclick="this.value=''">
                             <button type="button " class="btn btn-info " style="height:34px;margin:11px; ">
                                 搜索
                             </button>
@@ -192,7 +223,7 @@
                     <div class="card-body">
                         <div class="table-responsive " style="height: 300px;">
                             <table class="table table-hover " style="height: 300px">
-                                <thead class="text-primary ">
+                                <thead class="text-primary " id="information-table">
                                     <tr>
                                         <th>
                                             ID
@@ -217,30 +248,8 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            JAVA开发工程师
-                                        </td>
-                                        <td>
-                                            北京猎影商务信息咨询有限公司
-                                        </td>
-                                        <td>
-                                            北京
-                                        </td>
-                                        <td>
-                                            大专
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            6月30日
-                                        </td>
-                                    </tr>
+                                <tbody id="information-table-body">
+
                                 </tbody>
                             </table>
                         </div>
@@ -253,18 +262,37 @@
             <div class="row" style="margin: 30px;">
                 <div id="industry_predict_choice" class="col-lg-4 bg-white has-shadow" style="width: 25%;height:400px;">
                     <p>请输入查询的行业名</p>
-                    <input class="cityinput" id="industry_select_2" value="行业名">
+                    <input class="industry_select" type="text" list="sexlist_2" id="industry_select_2" value="前端" onclick="this.value=''" onblur="this.value=setIndustryDefault(this)">
+                    <datalist id="sexlist_2">
+                        <option>前端</option>
+                        <option>后端</option>
+                        <option>运维</option>
+                        <option>算法</option>
+                        <option>产品</option>
+                        <option>运营</option>
+                        <option>设计</option>
+                        <option>销售</option>
+                        <option>人事</option>
+                        <option>物流</option>
+                        <option>市场</option>
+                        <option>金融</option>
+                        <option>医疗健康</option>
+                        <option>高级管理</option>
+                        <option>其他行业</option>
+                    </datalist>
+                    <!--wrapper-->
+                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInIndustryPredict()">查询</button>
                     <div class="wrapper">
+                        <!-- <p><br/>此处为您显示检索历史</p> 加这句话要调整tagcloud的margin-top: -150px;-->
                         <div class="tagcloud " style="margin-left: -100px;">
-                            <a href="#">数据分析师</a>
-                            <a href="#">产品经理</a>
-                            <a href="#">前端工程师</a>
-                            <a href="#">运维</a>
-                            <a href="#">Linux</a>
-                            <a href="#">java工程师</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">设计</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">算法</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">前端</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">运维</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">产品</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">后端</a>
                         </div>
                     </div>
-                    <!--wrapper-->
                 </div>
                 <div class="col-md-2 " style="width: 2%;height:400px;"></div>
                 <div id="industry_predict_line" class="col-lg-6 bg-white has-shadow" style="width: 800px;height:400px;">折线图</div>
@@ -272,14 +300,15 @@
             <div class="row" style="margin: 30px;">
                 <div id="city_predict_choice" class="col-lg-4 bg-white has-shadow" style="width: 25%;height:400px;">
                     <p>请输入查询的城市名</p>
-                    <input class="cityinput" id="city_select_2" value="城市名">
+                    <input class="cityinput city_select" id="city_select_2" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityPredict()">查询</button>
                     <div class="wrapper">
                         <div class="tagcloud " style="margin-left: -100px;">
-                            <a href="#">北京</a>
-                            <a href="#">上海</a>
-                            <a href="#">广州</a>
-                            <a href="#">深圳</a>
-                            <a href="#">杭州</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">北京</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">上海</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">广州</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">深圳</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">杭州</a>
                         </div>
                     </div>
                 </div>
@@ -287,8 +316,20 @@
                 <div id="city_predict_line" class="col-lg-6 bg-white has-shadow" style="width: 800px;height:400px;">折线图</div>
             </div>
         </div>
+        <!-- 数据监控 -->
         <div id="data_local" class="container" style="display:none;width: 1300px">
-            <h3>本站数据</h3>
+            <div class="row" style="margin: 30px;">
+                <h1>城市岗位数量查询次数</h1>
+            </div>
+            <div class="row" style="margin: 30px;">
+                <h1>城市薪资查询次数</h1>
+            </div>
+            <div class="row" style="margin: 30px;">
+                <h1>行业岗位数量查询次数</h1>
+            </div>
+            <div class="row" style="margin: 30px;">
+                <h1>行业薪资数量查询次数</h1>
+            </div>
         </div>
         <!-- /#page-content-wrapper -->
 
@@ -298,6 +339,7 @@
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
     <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
     <script src="./js/map.js"></script>
+    <script src="./js/provinces.js"></script>
     <script src="./js/tagcloud.js"></script>
     <script src="./js/data.js"></script>
     <script src="dist/echarts.js"></script>
@@ -360,421 +402,6 @@
             direction: 135, //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
             keep: false //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
         });
-    </script>
-    <!-- <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var city_pie = echarts.init(document.getElementById('city_pie'), 'light');
-        var city_pie_option = {
-            title: {
-                text: '城市岗位数量占比',
-                subtext: '纯属虚构',
-                left: 'center'
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b} : {c} ({d}%)'
-            },
-            legend: {
-                type: 'scroll',
-                orient: 'vertical',
-                right: 10,
-                top: 20,
-                bottom: 20,
-                data: ['北京', '上海', '广州', '深圳', '杭州']
-            },
-            series: [{
-                name: '城市名:',
-                type: 'pie',
-                radius: '55%',
-                center: ['40%', '50%'],
-                data: [{
-                    value: 29201,
-                    name: '北京'
-                }, {
-                    value: 26536,
-                    name: '上海'
-                }, {
-                    value: 26206,
-                    name: '广州'
-                }, {
-                    value: 24952,
-                    name: '深圳'
-                }, {
-                    value: 15723,
-                    name: '杭州'
-                }],
-                emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }]
-        }
-
-        // 使用刚指定的配置项和数据显示图表。
-        city_pie.setOption(city_pie_option);
-    </script> -->
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var city_wage = echarts.init(document.getElementById('city_wage'), 'light');
-        var city_wage_option = {
-            legend: {},
-            tooltip: {},
-            dataset: {
-                dimensions: ['cityName', '平均薪资', '中位薪资'],
-                source: [{
-                    cityName: '北京',
-                    '平均薪资': 2600,
-                    '中位薪资': 3700
-                }, {
-                    cityName: '上海',
-                    '平均薪资': 2600,
-                    '中位薪资': 3700
-                }, {
-                    cityName: '杭州',
-                    '平均薪资': 2600,
-                    '中位薪资': 3700
-                }, {
-                    cityName: '深圳',
-                    '平均薪资': 2600,
-                    '中位薪资': 3700
-                }]
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {},
-            // Declare several bar series, each will be mapped
-            // to a column of dataset.source by default.
-            series: [{
-                type: 'bar'
-            }, {
-                type: 'bar'
-            }, ]
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        city_wage.setOption(city_wage_option);
-    </script>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var industry_pie = echarts.init(document.getElementById('industry_pie'), 'light');
-        var industry_pie_option = {
-            title: {
-                text: '行业岗位数量占比',
-                subtext: '纯属虚构',
-                left: 'center'
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b} : {c} ({d}%)'
-            },
-            legend: {
-                type: 'scroll',
-                orient: 'vertical',
-                right: 10,
-                top: 20,
-                bottom: 20,
-                data: ['北京', '上海', '广州', '深圳', '杭州']
-            },
-            series: [{
-                name: '城市名:',
-                type: 'pie',
-                radius: '55%',
-                center: ['40%', '50%'],
-                data: [{
-                    value: 29201,
-                    name: '北京'
-                }, {
-                    value: 26536,
-                    name: '上海'
-                }, {
-                    value: 26206,
-                    name: '广州'
-                }, {
-                    value: 24952,
-                    name: '深圳'
-                }, {
-                    value: 15723,
-                    name: '杭州'
-                }],
-                emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }]
-        }
-
-        // 使用刚指定的配置项和数据显示图表。
-        industry_pie.setOption(industry_pie_option);
-    </script>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var industry_wage = echarts.init(document.getElementById('industry_wage'), 'light');
-        var industry_wage_option = {
-            legend: {},
-            tooltip: {},
-            dataset: {
-                dimensions: ['product', '2015', '2016', '2017'],
-                source: [{
-                    product: 'Matcha Latte',
-                    '2015': 43.3,
-                    '2016': 85.8,
-                    '2017': 93.7
-                }, {
-                    product: 'Milk Tea',
-                    '2015': 83.1,
-                    '2016': 73.4,
-                    '2017': 55.1
-                }, {
-                    product: 'Cheese Cocoa',
-                    '2015': 86.4,
-                    '2016': 65.2,
-                    '2017': 82.5
-                }, {
-                    product: 'Walnut Brownie',
-                    '2015': 72.4,
-                    '2016': 53.9,
-                    '2017': 39.1
-                }]
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {},
-            // Declare several bar series, each will be mapped
-            // to a column of dataset.source by default.
-            series: [{
-                type: 'bar'
-            }, {
-                type: 'bar'
-            }, {
-                type: 'bar'
-            }]
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        industry_wage.setOption(industry_wage_option);
-    </script>
-    <script type="text/javascript">
-        var mapdata = [{
-            name: "南海诸岛",
-            value: 0
-        }, {
-            name: '北京',
-            value: randomValue()
-        }, {
-            name: '天津',
-            value: randomValue()
-        }, {
-            name: '上海',
-            value: randomValue()
-        }, {
-            name: '重庆',
-            value: randomValue()
-        }, {
-            name: '河北',
-            value: randomValue()
-        }, {
-            name: '河南',
-            value: randomValue()
-        }, {
-            name: '云南',
-            value: randomValue()
-        }, {
-            name: '辽宁',
-            value: randomValue()
-        }, {
-            name: '黑龙江',
-            value: randomValue()
-        }, {
-            name: '湖南',
-            value: randomValue()
-        }, {
-            name: '安徽',
-            value: randomValue()
-        }, {
-            name: '山东',
-            value: randomValue()
-        }, {
-            name: '新疆',
-            value: randomValue()
-        }, {
-            name: '江苏',
-            value: randomValue()
-        }, {
-            name: '浙江',
-            value: randomValue()
-        }, {
-            name: '江西',
-            value: randomValue()
-        }, {
-            name: '湖北',
-            value: randomValue()
-        }, {
-            name: '广西',
-            value: randomValue()
-        }, {
-            name: '甘肃',
-            value: randomValue()
-        }, {
-            name: '山西',
-            value: randomValue()
-        }, {
-            name: '内蒙古',
-            value: randomValue()
-        }, {
-            name: '陕西',
-            value: randomValue()
-        }, {
-            name: '吉林',
-            value: randomValue()
-        }, {
-            name: '福建',
-            value: randomValue()
-        }, {
-            name: '贵州',
-            value: randomValue()
-        }, {
-            name: '广东',
-            value: randomValue()
-        }, {
-            name: '青海',
-            value: randomValue()
-        }, {
-            name: '西藏',
-            value: randomValue()
-        }, {
-            name: '四川',
-            value: randomValue()
-        }, {
-            name: '成都',
-            value: randomValue()
-        }, {
-            name: '宁夏',
-            value: randomValue()
-        }, {
-            name: '海南',
-            value: randomValue()
-        }, {
-            name: '台湾',
-            value: randomValue()
-        }, {
-            name: '香港',
-            value: randomValue()
-        }, {
-            name: '澳门',
-            value: randomValue()
-        }]
-        var mapChart = echarts.init(document.getElementById('map'));
-
-        function randomValue() {
-            return Math.round(Math.random() * 1000);
-        }
-        mapoption = {
-            tooltip: {
-                formatter: function(params, ticket, callback) {
-                        return params.seriesName + '<br />' + params.name + '：' + params.value
-                    } //数据格式化
-            },
-            visualMap: {
-                min: 0,
-                max: 1500,
-                left: 'left',
-                top: 'bottom',
-                text: ['高', '低'], //取值范围的文字
-                inRange: {
-                    color: ['#e0ffff', '#006edd'] //取值范围的颜色
-                },
-                show: true //图注
-            },
-            geo: {
-                map: 'china',
-                roam: false, //不开启缩放和平移
-                zoom: 1.23, //视角缩放比例
-                label: {
-                    normal: {
-                        show: true,
-                        fontSize: '10',
-                        color: 'rgba(0,0,0,0.7)'
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        borderColor: 'rgba(0, 0, 0, 0.2)'
-                    },
-                    emphasis: {
-                        areaColor: '#F3B329', //鼠标选择区域颜色
-                        shadowOffsetX: 0,
-                        shadowOffsetY: 0,
-                        shadowBlur: 20,
-                        borderWidth: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            },
-            series: [{
-                name: '岗位数量',
-                type: 'map',
-                geoIndex: 0,
-                data: mapdata
-            }]
-        };
-        mapChart.setOption(mapoption);
-        mapChart.on('click', function(params) {
-            alert(params.name);
-        });
-
-        /*  setTimeout(function () {
-              myChart.setOption({
-                  series : [
-                      {
-                          name: '信息量',
-                          type: 'map',
-                          geoIndex: 0,
-                          data:dataList
-                      }
-                  ]
-              });
-          },1000)*/
-    </script>
-    <script>
-        // 基于准备好的dom，初始化echarts实例
-        var city_word_line = echarts.init(document.getElementById('city_word_line'), 'light');
-        var city_word_line_option = {
-            title: {
-                text: '各关键字在招聘中的出现次数',
-                left: 'center',
-                align: 'right'
-            },
-            grid: {
-                // left: '1%',
-                // height: '75%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'category',
-                data: ['关键字1', '关键字2', '关键字3', '关键字4', '关键字5', '关键字6', '关键字7', '关键字8', '关键字9', '关键字10'],
-                axisLabel: {
-                    interval: 0,
-                    rotate: 60
-                }
-            },
-            yAxis: {
-                name: '次数',
-                type: 'value',
-                max: 200
-            },
-            series: [{
-                data: [178, 159, 146, 142, 137, 134, 130, 74, 50, 22],
-                type: 'bar'
-            }]
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        city_word_line.setOption(city_word_line_option);
     </script>
     <script>
         // 基于准备好的dom，初始化echarts实例
@@ -973,92 +600,6 @@
         // 使用刚指定的配置项和数据显示图表。
         city_predict_line.setOption(city_predict_line_option);
     </script>
-    <script>
-        // 基于准备好的dom，初始化echarts实例
-        var industry_wage_compound = echarts.init(document.getElementById('industry_wage_compound'), 'light');
-        var industry_wage_compound_option = {
-            title: {
-                text: '城市预测图',
-                subtext: '纯属虚构',
-                left: 'center',
-                align: 'right'
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'cross',
-                    crossStyle: {
-                        color: '#999'
-                    }
-                }
-            },
-            toolbox: {
-                feature: {
-                    dataView: {
-                        show: true,
-                        readOnly: false
-                    },
-                    magicType: {
-                        show: true,
-                        type: ['line', 'bar']
-                    },
-                    restore: {
-                        show: true
-                    },
-                    saveAsImage: {
-                        show: true
-                    }
-                }
-            },
-            legend: {
-                data: ['中位薪资', '平均薪资'],
-                left: 10,
-                top: 0,
-                bottom: 20,
-            },
-            xAxis: [{
-                type: 'category',
-                data: ['行业1', '行业2', '行业3', '行业4', '行业5', '行业6', '行业7', '行业8', '行业9', '行业10'],
-                axisPointer: {
-                    type: 'shadow'
-                }
-            }],
-            yAxis: [{
-                type: 'value',
-                name: '岗位数量',
-                min: 0,
-                max: 1000,
-            }, {
-                type: 'value',
-                name: '平均薪资',
-                min: 5000,
-                max: 30000,
-            }, {
-                type: 'value',
-                name: '中位薪资',
-                min: 5000,
-                max: 30000,
-            }],
-            series: [{
-                name: '岗位数量',
-                type: 'bar',
-                data: [126, 722, 121, 348, 967, 504, 222, 312, 734, 295]
-            }, {
-                name: '平均薪资',
-                type: 'line',
-                yAxisIndex: 1,
-                data: [19891, 22947, 13718, 6789, 13066, 13013, 7828, 16471, 19346, 8180]
-            }, {
-                name: '中位薪资',
-                type: 'line',
-                yAxisIndex: 2,
-                data: [28109, 10427, 23300, 25720, 10319, 25420, 24303, 19816, 8776, 26984]
-            }]
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        industry_wage_compound.setOption(industry_wage_compound_option);
-    </script>
-    </div>
 </body>
 
 </html>

@@ -8,7 +8,7 @@ from lxml import etree
 import pandas as pd
 import logging
 
-data_file = "./data/"
+# data_file = "./data/"
 location_file = 'location.txt'
 
 header = {
@@ -195,16 +195,19 @@ if __name__ == '__main__':
     t_start_web = time.time()
     loop = asyncio.get_event_loop()
     sem1 = asyncio.Semaphore(100)
-    tasks = [asyncio.ensure_future(download(sem1, url)) for url in urls[:10000]]
+    # 第一个人 3413
+    # 第二个人 3413：6826
+    # 第三个人 6826：
+    tasks = [asyncio.ensure_future(download(sem1, url)) for url in urls[:3413]]
     tasks = asyncio.gather(*tasks)
     loop.run_until_complete(tasks)
     t_end_web = time.time()
     # 文件读取时间
     t_start_file = time.time()
-    df.to_csv(data_file + 'result_new.csv', encoding='utf-8')
+    df.to_csv('one_part.csv', encoding='utf-8')
     t_end_file = time.time()
 
     print('网站爬取总共耗时：%s' % (t_end_web - t_start_web))
     print('文件读取总共耗时：%s' % (t_end_file - t_start_file))
-    print('总共耗时：%s' % ((t_start_web - t_end_web) + (t_end_file - t_start_file)))
+    print('总共耗时：%s' % ((t_end_web - t_start_web) + (t_end_file - t_start_file)))
     print('*' * 50)
