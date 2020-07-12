@@ -549,7 +549,7 @@ p.tip {
 
 .wrapper {
     width: 200px;
-    height: 300px;
+    height: 260px;
     margin: 0 auto;
 }
 
@@ -615,13 +615,13 @@ p.tip {
 .item {
     border-right: 1px solid #eee;
     padding: 15px 0;
-    margin-left: 75px;
+    margin-left: 30px;
 }
 
 .item_last {
     /* border-right: 1px solid #eee; */
     padding: 15px 0;
-    margin-left: 75px;
+    margin-left: 30px;
 }
 
 .align-items-center {
@@ -656,6 +656,11 @@ p.tip {
 
 .bg-orange {
     background: #ffc36d !important;
+    color: #fff;
+}
+
+.bg-blue {
+    background: #37A2DA !important;
     color: #fff;
 }
 

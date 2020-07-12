@@ -63,7 +63,7 @@
                     <div class="col-lg-4 bg-white has-shadow" style="margin-left: 15px;width: 31%;height: 80px">岗位数</div> -->
                     <div class="row bg-white has-shadow" style="height:120px;">
                         <!-- Item -->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="item d-flex align-items-center">
                                 <!-- <div class="icon bg-red"><i class="icon-padnote"></i></div> -->
                                 <div class="icon bg-red"><img style="width: 40px;" src="./fonts/city.svg"></div>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <!-- Item -->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="item d-flex align-items-center">
                                 <div class="icon bg-green"><img style="width: 40px;" src="./fonts/industry.svg"></i>
                                 </div>
@@ -85,14 +85,25 @@
                             </div>
                         </div>
                         <!-- Item -->
-                        <div class="col-md-4">
-                            <div class="item_last d-flex align-items-center">
+                        <div class="col-md-3">
+                            <div class="item d-flex align-items-center">
                                 <div class="icon bg-orange"><img style="width: 40px;" src="./fonts/job.svg"></i>
                                 </div>
                                 <div class="title"><span>Job<br>Num</span>
 
                                 </div>
                                 <div class="number"><strong>49295</strong></div>
+                            </div>
+                        </div>
+                        <!-- Item -->
+                        <div class="col-md-3">
+                            <div class="item_last d-flex align-items-center">
+                                <div class="icon bg-blue"><img style="width: 40px;" src="./fonts/time.svg"></i>
+                                </div>
+                                <div class="title"><span>Data<br>Period</span>
+
+                                </div>
+                                <div class="number"><strong>7.8</strong></div>
                             </div>
                         </div>
                     </div>
@@ -143,7 +154,7 @@
                         </div>
                         <!--wrapper-->
                     </div>
-                    <div id="map" class="col-md-6 bg-white has-shadow" style="margin-left: 7px;margin-right: 7px;width: 50%;height:700px;">
+                    <div id="map" class="col-md-6 bg-white has-shadow" style="margin-left: 7px;margin-right: 7px;width: 50%;height:660px;">
 
                     </div>
                     <div class="col-md-3  col-12">
@@ -162,8 +173,8 @@
                             <!--wrapper-->
                         </div>
                         <div class="d-flex bg-white has-shadow" style="margin-top: 10px;">
-                            <input class="cityinput " style="width: 60px;height: 35px;font-size: 14px;font-weight: bold;margin:10px " id="city_select_5" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
-                            <select style="width: 60px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: bold;padding-left: 2px;" value="前端">
+                            <input class="cityinput " style="width: 60px;height: 30px;font-size: 14px;font-weight: bold;margin:10px " id="city_select_5" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                            <select style="width: 60px;height: 30px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: bold;padding-left: 2px;" value="前端">
                                 <option selected>前端</option>
                                 <option>后端</option>
                                 <option>运维</option>
@@ -180,11 +191,11 @@
                                 <option>高级管理</option>
                                 <option>其他行业</option>
                             </select>
-                            <button type="button " class="btn btn-info " style="height:34px;margin:11px; ">
+                            <button type="button " class="btn btn-info " style="height:30px;margin:11px; ">
                                 搜索
                             </button>
                             <div class="wrapper" style="margin-top: 60px;margin-left: -240px">
-                                <div id="industry_city_education_pie" style="width: 260px;height:260px;">
+                                <div id="industry_city_education_pie" style="width: 260px;height:220px;">
                                     <h3>不同行业与城市对求职者学历占比</h3>
                                 </div>
                             </div>
@@ -343,19 +354,19 @@
         <!-- 数据监控 -->
         <div id="data_local" class="container" style="display:none;width: 1300px">
             <div class="row" style="margin: 30px;">
-<!--                <h1>各行业岗位薪资和岗位数查询次数</h1>-->
+                <!--                <h1>各行业岗位薪资和岗位数查询次数</h1>-->
                 <div id="industry_wage_and_job_query_stack" class="col-lg-12 bg-white has-shadow" style="width: 1130px;height: 400px;">
                     堆叠柱状图
                 </div>
             </div>
             <div class="row" style="margin: 30px;">
-<!--                <h1>各城市行业薪资和岗位数量查询次数</h1>-->
+                <!--                <h1>各城市行业薪资和岗位数量查询次数</h1>-->
                 <div id="city_wage_and_job_query_bar" class="col-lg-12 bg-white has-shadow" style="width: 1130px;height: 400px;">
                     柱状图
                 </div>
             </div>
             <div class="row" style="margin: 30px;">
-<!--                <h1>不同学历的用户对城市与行业的倾向</h1>-->
+                <!--                <h1>不同学历的用户对城市与行业的倾向</h1>-->
                 <div class="col-lg-4 bg-white has-shadow" style="width: 25%;height: 400px;">
                     <p>请输入查询的城市名</p>
                     <input class="cityinput city_select" id="city_select_4" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
@@ -451,7 +462,7 @@
         var industry_city_education_pie = echarts.init(document.getElementById('industry_city_education_pie'), 'light');
         var industry_city_education_pie_option = {
             title: {
-                text: '不同行业与城市对求职者\n学历要求占比',
+                text: '从业人员学历分布图',
                 //subtext: '暂时虚构',
                 left: 'center',
                 align: 'right',
@@ -465,34 +476,39 @@
                 data: ['大专', '本科', '硕士', '博士'],
                 bottom: 0
             },
-            series: [
-                {
-                    name: '学历要求',
-                    type: 'pie',
-                    radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,
+            series: [{
+                name: '学历要求',
+                type: 'pie',
+                radius: ['40%', '60%'],
+                avoidLabelOverlap: false,
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
                     label: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            fontSize: '30',
-                            fontWeight: 'bold'
-                        }
-                    },
-                    labelLine: {
-                        show: false
-                    },
-                    data: [
-                        {value: 335, name: '大专'},
-                        {value: 310, name: '本科'},
-                        {value: 234, name: '硕士'},
-                        {value: 135, name: '博士'}
-                    ]
-                }
-            ]
+                        show: true,
+                        fontSize: '20',
+                        fontWeight: 'normal'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [{
+                    value: 335,
+                    name: '大专'
+                }, {
+                    value: 310,
+                    name: '本科'
+                }, {
+                    value: 234,
+                    name: '硕士'
+                }, {
+                    value: 135,
+                    name: '博士'
+                }]
+            }]
         };
         // 使用刚指定的配置项和数据显示图表。
         industry_city_education_pie.setOption(industry_city_education_pie_option);
@@ -708,32 +724,25 @@
                 bottom: '3%',
                 containLabel: true
             },
-            xAxis: [
-                {
-                    type: 'category',
-                    data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业']
-                }
-            ],
-            yAxis: [
-                {
-                    name: '次数(查询)',
-                    type: 'value'
-                }
-            ],
-            series: [
-                {
-                    name: '薪资',
-                    type: 'bar',
-                    stack: '数据',
-                    data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
-                },
-                {
-                    name: '岗位数',
-                    type: 'bar',
-                    stack: '数据',
-                    data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
-                }
-            ]
+            xAxis: [{
+                type: 'category',
+                data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业']
+            }],
+            yAxis: [{
+                name: '次数(查询)',
+                type: 'value'
+            }],
+            series: [{
+                name: '薪资',
+                type: 'bar',
+                stack: '数据',
+                data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
+            }, {
+                name: '岗位数',
+                type: 'bar',
+                stack: '数据',
+                data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
+            }]
         };
         industry_wage_and_job_query_stack.setOption(industry_wage_and_job_query_stack_option);
     </script>
@@ -772,14 +781,14 @@
             },
             xAxis: {
                 type: 'category',
-                data: ['北京', '上海', '广州', '深圳', '武汉', '杭州', '重庆', '南京'],
+                data: ['北京', '上海', '广州', '深圳', '武汉', '杭州', '重庆', '南京', '宁波', '天津', '合肥', '长沙', '大连'],
             },
             yAxis: {
                 name: '次数(查询)',
                 type: 'value',
             },
             series: [{
-                data: [35709, 41100, 44547, 47697, 34821, 34252, 42352, 44406],
+                data: [35709, 41100, 44547, 47697, 34821, 34252, 42352, 44406, 47697, 34821, 45194, 41100, 34821],
                 type: 'bar'
             }]
         };
@@ -826,44 +835,39 @@
                 bottom: '3%',
                 containLabel: true
             },
-            xAxis: [
-                {
-                    type: 'category',
-                    data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业']
+            xAxis: [{
+                type: 'category',
+                data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业'],
+                axisLabel: {
+                    interval: 0,
+                    rotate: 60
                 }
-            ],
-            yAxis: [
-                {
-                    name: '次数(查询)',
-                    type: 'value'
-                }
-            ],
-            series: [
-                {
-                    name: '大专',
-                    type: 'bar',
-                    stack: '学历',
-                    data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
-                },
-                {
-                    name: '本科',
-                    type: 'bar',
-                    stack: '学历',
-                    data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
-                },
-                {
-                    name: '硕士',
-                    type: 'bar',
-                    stack: '学历',
-                    data: [7546, 6259, 9917, 9023, 5475, 7464, 5893, 8421, 6306, 9343, 7501, 7646, 9102, 9106]
-                },
-                {
-                    name: '博士',
-                    type: 'bar',
-                    stack: '学历',
-                    data: [5420, 8022, 7632, 9238, 8007, 6596, 8910, 7619, 5210, 9494, 8242, 6501, 7524, 5787]
-                }
-            ]
+            }],
+            yAxis: [{
+                name: '次数(查询)',
+                type: 'value'
+            }],
+            series: [{
+                name: '大专',
+                type: 'bar',
+                stack: '学历',
+                data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
+            }, {
+                name: '本科',
+                type: 'bar',
+                stack: '学历',
+                data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
+            }, {
+                name: '硕士',
+                type: 'bar',
+                stack: '学历',
+                data: [7546, 6259, 9917, 9023, 5475, 7464, 5893, 8421, 6306, 9343, 7501, 7646, 9102, 9106]
+            }, {
+                name: '博士',
+                type: 'bar',
+                stack: '学历',
+                data: [5420, 8022, 7632, 9238, 8007, 6596, 8910, 7619, 5210, 9494, 8242, 6501, 7524, 5787]
+            }]
         };
         city_industry_education_query_stack.setOption(city_industry_education_query_stack_option);
     </script>
