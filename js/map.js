@@ -512,3 +512,5 @@ var city_select_2 = new Vcity.CitySelector({ input: 'city_select_2' });
 // var industry_select_2 = new Vcity.CitySelector({ input: 'industry_select_2' });
 var city_select_3 = new Vcity.CitySelector({ input: 'city_select_3' });
 // var industry_select_3 = new Vcity.CitySelector({ input: 'industry_select_3' });
+var city_select_4 = new Vcity.CitySelector({ input: 'city_select_4' });
+var city_select_5 = new Vcity.CitySelector({ input: 'city_select_5' });

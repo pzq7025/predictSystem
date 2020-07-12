@@ -110,7 +110,7 @@
                 <div class="row" style="margin: 30px;">
                     <div id="industry_choice" class="col-md-3 bg-white has-shadow" style="margin-right: 15px;width: 22%;height:400px;">
                         <p>请输入查询的行业名</p>
-                        <input id="industry_select_1" type="text" list="sexlist" class="industry_select_1" value="前端">
+                        <input id="industry_select_1" type="text" list="sexlist" class="industry_select" value="前端" onclick="this.value=''" onblur="this.value=setIndustryDefault(this)">
                         <datalist id="sexlist">
                             <option>前端</option>
                             <option>后端</option>
@@ -143,7 +143,7 @@
                         </div>
                         <!--wrapper-->
                     </div>
-                    <div id="map" class="col-md-6 bg-white has-shadow" style="margin-left: 7px;margin-right: 7px;width: 50%;height:600px;">
+                    <div id="map" class="col-md-6 bg-white has-shadow" style="margin-left: 7px;margin-right: 7px;width: 50%;height:700px;">
 
                     </div>
                     <div class="col-md-3  col-12">
@@ -161,15 +161,40 @@
                             </div> -->
                             <!--wrapper-->
                         </div>
-                        <div id="industry_word_line" class="d-flex bg-white has-shadow" style="margin-top: 10px;width: 100%;height:290px;">
-                            <h3>行业关键字表</h3>
+                        <div class="d-flex bg-white has-shadow" style="margin-top: 10px;">
+                            <input class="cityinput " style="width: 60px;height: 35px;font-size: 14px;font-weight: bold;margin:10px " id="city_select_5" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                            <select style="width: 60px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: bold;padding-left: 2px;" value="前端">
+                                <option selected>前端</option>
+                                <option>后端</option>
+                                <option>运维</option>
+                                <option>算法</option>
+                                <option>产品</option>
+                                <option>运营</option>
+                                <option>设计</option>
+                                <option>销售</option>
+                                <option>人事</option>
+                                <option>物流</option>
+                                <option>市场</option>
+                                <option>金融</option>
+                                <option>医疗健康</option>
+                                <option>高级管理</option>
+                                <option>其他行业</option>
+                            </select>
+                            <button type="button " class="btn btn-info " style="height:34px;margin:11px; ">
+                                搜索
+                            </button>
+                            <div class="wrapper" style="margin-top: 60px;margin-left: -240px">
+                                <div id="industry_city_education_pie" style="width: 260px;height:260px;">
+                                    <h3>不同行业与城市对求职者学历占比</h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row" style="margin: 30px;">
                     <div id="city_choice" class="col-md-3 bg-white has-shadow" style="width: 21.5%;height:400px;margin-right: 15px;">
                         <p>请输入查询的城市名</p>
-                        <input class="cityinput city_select" id="city_select_1" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                        <input class="cityinput" id="city_select_1" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
                         <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityCompound()">查询</button>
                         <div class="wrapper">
                             <div class="tagcloud ">
@@ -204,11 +229,11 @@
                             <option>高级管理</option>
                             <option>其他行业</option>
                         </select>
-                        <select class="time_span_select_1 col-md-3" style="width: 125px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" id="time_span_select_1" value="3">
-                            <option value="15">博士</option>
-                            <option value="1">硕士</option>
-                            <option value="3" selected>本科</option>
-                            <option value="7">大专</option>
+                        <select class="time_span_select_1 col-md-3" style="width: 125px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" id="time_span_select_1" value="本科">
+                            <option value="博士">博士</option>
+                            <option value="硕士">硕士</option>
+                            <option value="本科" selected>本科</option>
+                            <option value="大专">大专</option>
                         </select>
 
                         <div class="col-md-5 ">
@@ -265,7 +290,6 @@
                     <input class="industry_select" type="text" list="sexlist_2" id="industry_select_2" value="前端" onclick="this.value=''" onblur="this.value=setIndustryDefault(this)">
                     <datalist id="sexlist_2">
                         <option>前端</option>
-                        <option>后端</option>
                         <option>运维</option>
                         <option>算法</option>
                         <option>产品</option>
@@ -319,16 +343,35 @@
         <!-- 数据监控 -->
         <div id="data_local" class="container" style="display:none;width: 1300px">
             <div class="row" style="margin: 30px;">
-                <h1>城市岗位数量查询次数</h1>
+<!--                <h1>各行业岗位薪资和岗位数查询次数</h1>-->
+                <div id="industry_wage_and_job_query_stack" class="col-lg-12 bg-white has-shadow" style="width: 1130px;height: 400px;">
+                    堆叠柱状图
+                </div>
             </div>
             <div class="row" style="margin: 30px;">
-                <h1>城市薪资查询次数</h1>
+<!--                <h1>各城市行业薪资和岗位数量查询次数</h1>-->
+                <div id="city_wage_and_job_query_bar" class="col-lg-12 bg-white has-shadow" style="width: 1130px;height: 400px;">
+                    柱状图
+                </div>
             </div>
             <div class="row" style="margin: 30px;">
-                <h1>行业岗位数量查询次数</h1>
-            </div>
-            <div class="row" style="margin: 30px;">
-                <h1>行业薪资数量查询次数</h1>
+<!--                <h1>不同学历的用户对城市与行业的倾向</h1>-->
+                <div class="col-lg-4 bg-white has-shadow" style="width: 25%;height: 400px;">
+                    <p>请输入查询的城市名</p>
+                    <input class="cityinput city_select" id="city_select_4" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityIndustryEducationQueryStack()">查询</button>
+                    <div class="wrapper">
+                        <div class="tagcloud " style="margin-left: -100px">
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">北京</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">上海</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">广州</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">深圳</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">杭州</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 " style="width: 2%;height:400px;"></div>
+                <div id="city_industry_education_query_stack" class="col-lg-6 bg-white has-shadow" style="width: 800px;height: 400px;">堆叠柱状图</div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -405,38 +448,54 @@
     </script>
     <script>
         // 基于准备好的dom，初始化echarts实例
-        var industry_word_line = echarts.init(document.getElementById('industry_word_line'), 'light');
-        var industry_word_line_option = {
+        var industry_city_education_pie = echarts.init(document.getElementById('industry_city_education_pie'), 'light');
+        var industry_city_education_pie_option = {
             title: {
-                text: '各关键字在招聘中的出现次数',
+                text: '不同行业与城市对求职者\n学历要求占比',
+                //subtext: '暂时虚构',
                 left: 'center',
-                align: 'right'
+                align: 'right',
+                padding: [5, 10]
             },
-            grid: {
-                left: '1%',
-                height: '75%',
-                containLabel: true
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)'
             },
-            xAxis: {
-                type: 'category',
-                data: ['关键字1', '关键字2', '关键字3', '关键字4', '关键字5', '关键字6', '关键字7', '关键字8', '关键字9', '关键字10'],
-                axisLabel: {
-                    interval: 0,
-                    rotate: 60
+            legend: {
+                data: ['大专', '本科', '硕士', '博士'],
+                bottom: 0
+            },
+            series: [
+                {
+                    name: '学历要求',
+                    type: 'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        {value: 335, name: '大专'},
+                        {value: 310, name: '本科'},
+                        {value: 234, name: '硕士'},
+                        {value: 135, name: '博士'}
+                    ]
                 }
-            },
-            yAxis: {
-                name: '次数',
-                type: 'value',
-                max: 200
-            },
-            series: [{
-                data: [178, 159, 146, 142, 137, 134, 130, 74, 50, 22],
-                type: 'bar'
-            }]
+            ]
         };
         // 使用刚指定的配置项和数据显示图表。
-        industry_word_line.setOption(industry_word_line_option);
+        industry_city_education_pie.setOption(industry_city_education_pie_option);
     </script>
     <script>
         // 基于准备好的dom，初始化echarts实例
@@ -549,7 +608,7 @@
                 }
             },
             legend: {
-                data: ['流量', '降雨量'],
+                data: ['薪资', '数量'],
                 left: 10
             },
             dataZoom: [{
@@ -599,6 +658,214 @@
         };
         // 使用刚指定的配置项和数据显示图表。
         city_predict_line.setOption(city_predict_line_option);
+    </script>
+    <script>
+        var industry_wage_and_job_query_stack = echarts.init(document.getElementById('industry_wage_and_job_query_stack'), 'light');
+        var industry_wage_and_job_query_stack_option = {
+            title: {
+                text: '各行业岗位薪资和岗位数查询次数',
+                subtext: '暂时虚构',
+                left: 'center',
+                align: 'right'
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+            },
+            toolbox: {
+                feature: {
+                    dataView: {
+                        show: true,
+                        readOnly: false
+                    },
+                    magicType: {
+                        show: true,
+                        type: ['line', 'bar']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            legend: {
+                data: ['薪资', '岗位数'],
+                left: 10
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业']
+                }
+            ],
+            yAxis: [
+                {
+                    name: '次数(查询)',
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '薪资',
+                    type: 'bar',
+                    stack: '数据',
+                    data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
+                },
+                {
+                    name: '岗位数',
+                    type: 'bar',
+                    stack: '数据',
+                    data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
+                }
+            ]
+        };
+        industry_wage_and_job_query_stack.setOption(industry_wage_and_job_query_stack_option);
+    </script>
+    <script>
+        var city_wage_and_job_query_bar = echarts.init(document.getElementById('city_wage_and_job_query_bar'), 'light');
+        var city_wage_and_job_query_bar_option = {
+            title: {
+                text: '各城市查询次数',
+                subtext: '暂时虚构',
+                left: 'center',
+                align: 'right'
+            },
+            toolbox: {
+                feature: {
+                    dataView: {
+                        show: true,
+                        readOnly: false
+                    },
+                    magicType: {
+                        show: true,
+                        type: ['line', 'bar']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '3%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['北京', '上海', '广州', '深圳', '武汉', '杭州', '重庆', '南京'],
+            },
+            yAxis: {
+                name: '次数(查询)',
+                type: 'value',
+            },
+            series: [{
+                data: [35709, 41100, 44547, 47697, 34821, 34252, 42352, 44406],
+                type: 'bar'
+            }]
+        };
+        city_wage_and_job_query_bar.setOption(city_wage_and_job_query_bar_option);
+    </script>
+    <script>
+        var city_industry_education_query_stack = echarts.init(document.getElementById('city_industry_education_query_stack'), 'light');
+        var city = '北京';
+        var city_industry_education_query_stack_option = {
+            title: {
+                text: '不同学历的用户对' + city + '各行业的倾向',
+                //subtext: '暂时虚构',
+                left: 'center',
+                align: 'right'
+            },
+            toolbox: {
+                feature: {
+                    dataView: {
+                        show: true,
+                        readOnly: false
+                    },
+                    magicType: {
+                        show: true,
+                        type: ['line', 'bar']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+            },
+            legend: {
+                data: ['大专', '本科', '硕士', '博士'],
+                top: 25
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业']
+                }
+            ],
+            yAxis: [
+                {
+                    name: '次数(查询)',
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '大专',
+                    type: 'bar',
+                    stack: '学历',
+                    data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
+                },
+                {
+                    name: '本科',
+                    type: 'bar',
+                    stack: '学历',
+                    data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
+                },
+                {
+                    name: '硕士',
+                    type: 'bar',
+                    stack: '学历',
+                    data: [7546, 6259, 9917, 9023, 5475, 7464, 5893, 8421, 6306, 9343, 7501, 7646, 9102, 9106]
+                },
+                {
+                    name: '博士',
+                    type: 'bar',
+                    stack: '学历',
+                    data: [5420, 8022, 7632, 9238, 8007, 6596, 8910, 7619, 5210, 9494, 8242, 6501, 7524, 5787]
+                }
+            ]
+        };
+        city_industry_education_query_stack.setOption(city_industry_education_query_stack_option);
     </script>
 </body>
 

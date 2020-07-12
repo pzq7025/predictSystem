@@ -66,7 +66,7 @@ $.ajax({
 });
 
 
-// 城市薪资折线图
+// 城市薪资柱状图
 var city_wage = echarts.init(document.getElementById('city_wage'), 'light');
 var city_Wage_data = [];
 $.ajax({
@@ -83,13 +83,31 @@ $.ajax({
             city_Wage_data = data.cityWage;
             var city_wage_option = {
                 title: {
-                    text: '城市薪资折线图',
+                    text: '城市薪资柱状图',
                     // subtext: '纯属虚构',
                     left: 'left'
 
                 },
                 legend: {},
                 tooltip: {},
+                toolbox: {
+                    feature: {
+                        dataView: {
+                            show: true,
+                            readOnly: false
+                        },
+                        magicType: {
+                            show: true,
+                            type: ['line', 'bar']
+                        },
+                        restore: {
+                            show: true
+                        },
+                        saveAsImage: {
+                            show: true
+                        }
+                    }
+                },
                 dataset: {
                     dimensions: ['cityName', '平均薪资', '中位薪资'],
                     source: city_Wage_data,
@@ -174,7 +192,7 @@ $.ajax({
 });
 
 
-// 行业薪资折线图
+// 行业薪资柱状图
 var industry_wage = echarts.init(document.getElementById('industry_wage'), 'light');
 var industry_Wage_data = [];
 $.ajax({
@@ -187,13 +205,31 @@ $.ajax({
             industry_Wage_data = data.IndustryWage;
             var industry_wage_option = {
                 title: {
-                    text: '行业薪资折线图',
+                    text: '行业薪资柱状图',
                     // subtext: '纯属虚构',
                     left: 'left'
 
                 },
                 legend: {},
                 tooltip: {},
+                toolbox: {
+                    feature: {
+                        dataView: {
+                            show: true,
+                            readOnly: false
+                        },
+                        magicType: {
+                            show: true,
+                            type: ['line', 'bar']
+                        },
+                        restore: {
+                            show: true
+                        },
+                        saveAsImage: {
+                            show: true
+                        }
+                    }
+                },
                 dataset: {
                     dimensions: ['IndustryName', '平均薪资', '中位薪资'],
                     source: industry_Wage_data
@@ -788,7 +824,7 @@ $.ajax({
                 var education_td = document.createElement('td')
                 var salary_td = document.createElement('td')
                 var time_td = document.createElement('td')
-                id_td.innerHTML = key;
+                id_td.innerHTML = parseInt(key) + 1;
                 job_td.innerHTML = data_row['jobName'];
                 company_td.innerHTML = data_row['companyName'];
                 city_td.innerHTML = data_row['cityName'];
@@ -852,4 +888,19 @@ function changeInput_city_select_1(obj) {
 function changeInput_city_select_2(obj) {
     // console.log($(obj)[0].innerHTML);
     document.getElementById('city_select_2').value = $(obj)[0].innerHTML;
+}
+
+//以下为数据监控页面相关内容
+//数据监控页面各行业岗位薪资和岗位数查询次数图的默认请求
+
+//数据监控页面各城市行业薪资和岗位数量查询次数
+
+//数据监控页面不同学历的用户对城市与行业的倾向图的默认请求
+function getInCityIndustryEducationQueryStack(){
+
+}
+
+function changeInput_city_select_4(obj) {
+    // console.log($(obj)[0].innerHTML);
+    document.getElementById('city_select_4').value = $(obj)[0].innerHTML;
 }
