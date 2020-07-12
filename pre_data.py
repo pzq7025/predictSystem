@@ -287,20 +287,39 @@ with open('./station_City.txt', 'a', encoding='utf-8') as f:
         f.write(s + '\n')
         f.write(t + '\n')
 '''
+def job_wage_pred(new_csv_data, date_path):
+    zhaopin = new_csv_data.drop(columns=['location'])
+    zhaopin = zhaopin.drop(zhaopin.loc[~zhaopin.type.str.contains('前端')].index)
+    data = zhaopin.groupby('data')
+    data.mean()['salary']
+    print((data))
+    # new_data = pd.DataFrame(columns=['date', 'avg'])
+    # for key, value in data:
+    #     tmp = value.drop(columns=['type'])
+    #     tmp['avg'] = value.mean()['salary']
+    #     print(tmp)
+    #     new_data = pd.concat([new_data, tmp])
+    # new_data.index = np.arange(len(new_data.index))
+    # print(new_data)
+
+
+
 
 if __name__ == '__main__' :
 
-    Old_Csv_Path = '../old_data.csv'
-    Disting_Path ='../distinguish.txt'
-    New_Csv_Path ='../new_data.csv'
-    Date_Path = '../date.txt'
+    # Old_Csv_Path = './old_data.csv'
+    # Disting_Path ='./distinguish.txt'
+    # New_Csv_Path ='./new_data.csv'
+    Date_Path = './date.txt'
 
-    zhaopin_data = Pre_data(Old_Csv_Path, Disting_Path , New_Csv_Path)
-    Job_wage = top_job_wage_pred(zhaopin_data, Date_Path)
-    print(Job_wage)
-    Job_station = top_job_station_pred(zhaopin_data, Date_Path)
-    print(Job_station)
-    City_wage = top_city_wage_pred(zhaopin_data, Date_Path)
-    print(City_wage)
-    City_station = top_city_station_pred(zhaopin_data, Date_Path)
-    print(City_station)
+    # zhaopin_data = Pre_data(Old_Csv_Path, Disting_Path , New_Csv_Path)
+    zhaopin_data=pd.read_csv('./new_data.csv')
+    job_wage_pred(zhaopin_data, Date_Path)
+    # Job_wage = top_job_wage_pred(zhaopin_data, Date_Path)
+    # print(Job_wage)
+    # Job_station = top_job_station_pred(zhaopin_data, Date_Path)
+    # print(Job_station)
+    # City_wage = top_city_wage_pred(zhaopin_data, Date_Path)
+    # print(City_wage)
+    # City_station = top_city_station_pred(zhaopin_data, Date_Path)
+    # print(City_station)
