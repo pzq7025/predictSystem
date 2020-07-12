@@ -26,7 +26,7 @@ def Pre_data(Csv_Path):
     JobDis = ['前端','后端','运维','算法', '产品', '设计','运营','市场','人事','高级管理','销售','金融','医疗健康','物流','其他']
     Word = {}
 
-    with open('../distinguish.txt', 'r', encoding = 'utf-8') as f:
+    with open('./distinguish.txt', 'r', encoding = 'utf-8') as f:
         content = f.read()
         dis = content.split(',')
         #得到分类匹配词
@@ -51,7 +51,7 @@ def Pre_data(Csv_Path):
     #zhaopin = zhaopin.drop_duplicates()
 
     '''
-    with open('../test_3.txt', 'a', encoding = 'utf-8') as f:
+    with open('./test_3.txt', 'a', encoding = 'utf-8') as f:
         t = zhaopin.type.drop_duplicates()
         tt = ','.join(str(i) for i in t)
         f.write(tt)
@@ -63,7 +63,7 @@ def Pre_data(Csv_Path):
     print(cu)
 
 
-    zhaopin.to_csv('../new_data.csv', index = 0, encoding = 'utf-8_sig')
+    zhaopin.to_csv('./new_data.csv', index = 0, encoding = 'utf-8_sig')
 
     return zhaopin
 '''
@@ -76,7 +76,7 @@ def wage_pred(area, time,  job):
 #忽略城市,统计热门职业的的薪资均值,日期和职业为自变量,薪水为因变量
 def wage1_pred(Time, Jobtype):
     #去除无用列
-    zhaopin_data = pd.read_csv('../new_data.csv')
+    zhaopin_data = pd.read_csv('./new_data.csv')
     zhaopin = zhaopin_data.drop(columns = ['location'])
     #print(zhaopin.head(5))
 
@@ -117,7 +117,7 @@ def wage1_pred(Time, Jobtype):
     for i in range(len(dt)):
         new_data['date'] = new_data['date'].replace(dt[i], i*5)
 
-    with open('../date.txt', 'r', encoding = 'utf-8') as f:
+    with open('./date.txt', 'r', encoding = 'utf-8') as f:
         content = f.read()
         dat = content.split(',')
         #print(dat)
@@ -148,7 +148,7 @@ def wage1_pred(Time, Jobtype):
 #忽略城市,将每个职位的岗位数量,日期为自变量和职业,岗位需求数是因变量
 def wage2_pred(Time, Jobtype):
 
-    zhaopin_data = pd.read_csv('../new_data.csv')
+    zhaopin_data = pd.read_csv('./new_data.csv')
     zhaopin = zhaopin_data.drop(columns=['location'])
 
     zhaopin = zhaopin.drop(zhaopin.loc[~zhaopin.type.str.contains('后端|前端|销售|运维|人事|算法')].index)
@@ -176,7 +176,7 @@ def wage2_pred(Time, Jobtype):
     for i in range(len(dt)):
         new_data['date'] = new_data['date'].replace(dt[i], i*5)
 
-    with open('../date.txt', 'r', encoding = 'utf-8') as f:
+    with open('./date.txt', 'r', encoding = 'utf-8') as f:
         content = f.read()
         dat = content.split(',')
 
@@ -201,7 +201,7 @@ def wage2_pred(Time, Jobtype):
 #城市薪资, 忽略职业,自变量是城市和时间，因变量是城市薪资
 def wage3_pred(City, Time):
 
-    zhaopin_data = pd.read_csv('../new_data.csv')
+    zhaopin_data = pd.read_csv('./new_data.csv')
     zhaopin = zhaopin_data.drop(columns=['type'])
 
     #cu = zhaopin.location.value_counts()
@@ -230,7 +230,8 @@ def wage3_pred(City, Time):
     for i in range(len(dt)):
         new_data['date'] = new_data['date'].replace(dt[i], i * 5)
 
-    with open('../date.txt', 'r', encoding='utf-8') as f:
+    with open('.'
+              '/date.txt', 'r', encoding='utf-8') as f:
         content = f.read()
         dat = content.split(',')
 
@@ -253,7 +254,8 @@ def wage3_pred(City, Time):
 #忽略职业,岗位需求,统计城市工作需求量,自变量是时间和城市，因变量是该城市的工作岗位
 def wage4_pred(City, Time):
 
-    zhaopin_data = pd.read_csv('../new_data.csv')
+    zhaopin_data = pd.read_csv('.'
+                               '/new_data.csv')
     zhaopin = zhaopin_data.drop(columns=['type'])
 
     #cu = zhaopin.location.value_counts()
@@ -284,7 +286,7 @@ def wage4_pred(City, Time):
     for i in range(len(dt)):
         new_data['date'] = new_data['date'].replace(dt[i], i * 5)
 
-    with open('../date.txt', 'r', encoding='utf-8') as f:
+    with open('./date.txt', 'r', encoding='utf-8') as f:
         content = f.read()
         dat = content.split(',')
 
@@ -307,7 +309,7 @@ def wage4_pred(City, Time):
 #画出结果趋势图:
 def draw_Picture_salary(Csv_Obj):
 
-    with open('../date.txt', 'r', encoding='utf-8') as f:
+    with open('./date.txt', 'r', encoding='utf-8') as f:
         content = f.read()
         dat = content.split(',')
         print(dat)
@@ -347,7 +349,7 @@ def draw_Picture_salary(Csv_Obj):
 
 def draw_Picture_jobnum(Csv_Obj):
 
-    with open('../date.txt', 'r', encoding='utf-8') as f:
+    with open('./date.txt', 'r', encoding='utf-8') as f:
         content = f.read()
         dat = content.split(',')
 
@@ -355,8 +357,8 @@ def draw_Picture_jobnum(Csv_Obj):
 
 
 if __name__ == '__main__' :
-#zhaopin_data = Pre_data('../result_new.csv')
-    zhaopin_data =  pd.read_csv('../new_data.csv')
+#zhaopin_data = Pre_data('./result_new.csv')
+    zhaopin_data =  pd.read_csv('./new_data.csv')
 #print(zhaopin_data.info())
 
 #将各字符分类变量重编码为数值分类变量
