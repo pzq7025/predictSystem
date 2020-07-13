@@ -281,22 +281,22 @@
         </div>
         <!-- 数据预测 -->
         <div id="data_predict" class="container" style="display:none;width: 1300px">
-            <div class="col-sm-6 col-lg-6 bg-white has-shadow" style="width: 44%;height: 600px;margin-left: 30px;margin-right: 15px;margin-top: 30px;margin-bottom: 30px;">
-                <div class="item d-flex align-items-center">
-                    <div class="icon bg-red"><img style="width: 40px;" src="./fonts/prevailing_cities.svg"></i>
+            <div class="col-sm-6 col-lg-6 bg-white has-shadow" style="width: 43%;height: 510px;margin-left: 30px;margin-right: 20px;margin-top: 30px;margin-bottom: 30px;">
+                <div class="d-flex align-items-center" style="margin-left: 0px">
+                    <div class="icon_rank bg-red"><img style="width: 30px;" src="./fonts/prevailing_cities.svg"></i>
                     </div>
                     <div class="title"><span><strong>Top 10 热门城市</strong></span></div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive " style="height: 450px;">
+                    <div class="table-responsive " style="height: 500px;">
                         <table class="table table-hover " style="height: 450px" id="prevailing_cities_table" style="overflow-y: hidden;">
                             <thead class="text-primary ">
-                            <tr>
-                                <th>Rank</th>
-                                <th>城市名</th>
-                                <th>工资上涨率</th>
-                                <th>岗位数上涨率</th>
-                            </tr>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>城市名</th>
+                                    <th>工资上涨率</th>
+                                    <th>岗位数上涨率</th>
+                                </tr>
                             </thead>
                             <tbody id="prevailing_industries_table_body">
 
@@ -305,22 +305,22 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-6 bg-white has-shadow" style="width: 44%;height: 600px;margin-left: 15px;margin-right: 30px;margin-top: 30px;margin-bottom: 30px;">
-                <div class="item d-flex align-items-center">
-                    <div class="icon bg-red"><img style="width: 40px;" src="./fonts/prevailing_industries.svg"></i>
+            <div class="col-sm-6 col-lg-6 bg-white has-shadow" style="width: 43%;height: 510px;margin-left: 20px;margin-right: 30px;margin-top: 30px;margin-bottom: 30px;">
+                <div class="d-flex align-items-center" style="margin-left: 0px">
+                    <div class="icon_rank bg-red"><img style="width: 30px;" src="./fonts/prevailing_industries.svg"></i>
                     </div>
                     <div class="title"><span><strong>Top 10 热门行业</strong></span></div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive " style="height: 450px;">
+                    <div class="table-responsive " style="height: 500px;">
                         <table class="table table-hover " style="height: 450px" id="prevailing_industries_table">
                             <thead class="text-primary ">
-                            <tr>
-                                <th>Rank</th>
-                                <th>行业名</th>
-                                <th>工资上涨率</th>
-                                <th>岗位数上涨率</th>
-                            </tr>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>行业名</th>
+                                    <th>工资上涨率</th>
+                                    <th>岗位数上涨率</th>
+                                </tr>
                             </thead>
                             <tbody id="prevailing_cities_table_body">
 
@@ -349,79 +349,79 @@
                         <option>高级管理</option>
                         <option>其他行业</option>
                     </datalist>
-                        <!--wrapper-->
-                        <button type="button" class="btn btn-info" style="width:50px;" onclick="getInIndustryPredict()">查询</button>
-                        <div class="wrapper">
-                            <!-- <p><br/>此处为您显示检索历史</p> 加这句话要调整tagcloud的margin-top: -150px;-->
-                            <div class="tagcloud " style="margin-left: -100px;">
-                                <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">设计</a>
-                                <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">算法</a>
-                                <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">前端</a>
-                                <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">运维</a>
-                                <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">产品</a>
-                                <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">后端</a>
-                            </div>
+                    <!--wrapper-->
+                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInIndustryPredict()">查询</button>
+                    <div class="wrapper">
+                        <!-- <p><br/>此处为您显示检索历史</p> 加这句话要调整tagcloud的margin-top: -150px;-->
+                        <div class="tagcloud " style="margin-left: -100px;">
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">设计</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">算法</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">前端</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">运维</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">产品</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">后端</a>
                         </div>
                     </div>
-                    <div class="col-md-2 " style="width: 2%;height:400px;"></div>
-                    <div id="industry_predict_line" class="col-lg-6 bg-white has-shadow" style="width: 800px;height:400px;">折线图</div>
                 </div>
-                <div class="row" style="margin: 30px;">
-                    <div id="city_predict_choice" class="col-lg-4 bg-white has-shadow" style="width: 25%;height:400px;">
-                        <p>请输入查询的城市名</p>
-                        <input class="cityinput city_select" id="city_select_2" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
-                        <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityPredict()">查询</button>
-                        <div class="wrapper">
-                            <div class="tagcloud " style="margin-left: -100px;">
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">北京</a>
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">上海</a>
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">广州</a>
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">深圳</a>
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">杭州</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 " style="width: 2%;height:400px;"></div>
-                    <div id="city_predict_line" class="col-lg-6 bg-white has-shadow" style="width: 800px;height:400px;">折线图</div>
-                </div>
+                <div class="col-md-2 " style="width: 2%;height:400px;"></div>
+                <div id="industry_predict_line" class="col-lg-6 bg-white has-shadow" style="width: 800px;height:400px;">折线图</div>
             </div>
-            <!-- 数据监控 -->
-            <div id="data_local" class="container" style="display:none;width: 1300px;margin-left: 145px;">
-                <div class="row" style="margin: 30px;">
-                    <!--                <h1>各行业岗位薪资和岗位数查询次数</h1>-->
-                    <div id="industry_wage_and_job_query_stack" class="col-lg-12 bg-white has-shadow" style="width: 1130px;height: 400px;">
-                        堆叠柱状图
-                    </div>
-                </div>
-                <div class="row" style="margin: 30px;">
-                    <!--                <h1>各城市行业薪资和岗位数量查询次数</h1>-->
-                    <div id="city_wage_and_job_query_bar" class="col-lg-12 bg-white has-shadow" style="width: 1130px;height: 400px;">
-                        柱状图
-                    </div>
-                </div>
-                <div class="row" style="margin: 30px;">
-                    <!--                <h1>不同学历的用户对城市与行业的倾向</h1>-->
-                    <div class="col-lg-4 bg-white has-shadow" style="width: 25%;height: 400px;">
-                        <p>请输入查询的城市名</p>
-                        <input class="cityinput city_select" id="city_select_4" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
-                        <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityIndustryEducationQueryStack()">查询</button>
-                        <div class="wrapper">
-                            <div class="tagcloud " style="margin-left: -100px">
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">北京</a>
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">上海</a>
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">广州</a>
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">深圳</a>
-                                <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">杭州</a>
-                            </div>
+            <div class="row" style="margin: 30px;">
+                <div id="city_predict_choice" class="col-lg-4 bg-white has-shadow" style="width: 25%;height:400px;">
+                    <p>请输入查询的城市名</p>
+                    <input class="cityinput city_select" id="city_select_2" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityPredict()">查询</button>
+                    <div class="wrapper">
+                        <div class="tagcloud " style="margin-left: -100px;">
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">北京</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">上海</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">广州</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">深圳</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">杭州</a>
                         </div>
                     </div>
-                    <div class="col-md-2 " style="width: 2%;height:400px;"></div>
-                    <div id="city_industry_education_query_stack" class="col-lg-6 bg-white has-shadow" style="width: 800px;height: 400px;">堆叠柱状图</div>
                 </div>
+                <div class="col-md-2 " style="width: 2%;height:400px;"></div>
+                <div id="city_predict_line" class="col-lg-6 bg-white has-shadow" style="width: 800px;height:400px;">折线图</div>
             </div>
         </div>
+        <!-- 数据监控 -->
+        <div id="data_local" class="container" style="display:none;width: 1300px;margin-left: 145px;">
+            <div class="row" style="margin: 30px;">
+                <!--                <h1>各行业岗位薪资和岗位数查询次数</h1>-->
+                <div id="industry_wage_and_job_query_stack" class="col-lg-12 bg-white has-shadow" style="width: 1130px;height: 400px;">
+                    堆叠柱状图
+                </div>
+            </div>
+            <div class="row" style="margin: 30px;">
+                <!--                <h1>各城市行业薪资和岗位数量查询次数</h1>-->
+                <div id="city_wage_and_job_query_bar" class="col-lg-12 bg-white has-shadow" style="width: 1130px;height: 400px;">
+                    柱状图
+                </div>
+            </div>
+            <div class="row" style="margin: 30px;">
+                <!--                <h1>不同学历的用户对城市与行业的倾向</h1>-->
+                <div class="col-lg-4 bg-white has-shadow" style="width: 25%;height: 400px;">
+                    <p>请输入查询的城市名</p>
+                    <input class="cityinput city_select" id="city_select_4" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityIndustryEducationQueryStack()">查询</button>
+                    <div class="wrapper">
+                        <div class="tagcloud " style="margin-left: -100px">
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">北京</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">上海</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">广州</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">深圳</a>
+                            <a href="javascript:void(0)" onclick="changeInput_city_select_4(this)">杭州</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 " style="width: 2%;height:400px;"></div>
+                <div id="city_industry_education_query_stack" class="col-lg-6 bg-white has-shadow" style="width: 800px;height: 400px;">堆叠柱状图</div>
+            </div>
+        </div>
+    </div>
 
-        <!-- /#page-content-wrapper -->
+    <!-- /#page-content-wrapper -->
 
     </div>
     <!-- /#wrapper -->
