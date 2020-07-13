@@ -896,7 +896,7 @@ function changeInput_city_select_2(obj) {
 //数据监控页面各城市行业薪资和岗位数量查询次数
 
 //数据监控页面不同学历的用户对城市与行业的倾向图的默认请求
-function getInCityIndustryEducationQueryStack(){
+function getInCityIndustryEducationQueryStack() {
 
 }
 

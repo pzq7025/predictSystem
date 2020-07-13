@@ -615,13 +615,15 @@ p.tip {
 .item {
     border-right: 1px solid #eee;
     padding: 15px 0;
-    margin-left: 20px;
+    /* margin-left: 20px; */
+    margin-left: 75px;
 }
 
 .item_last {
     /* border-right: 1px solid #eee; */
     padding: 15px 0;
     /* margin-left: 30px; */
+    margin-left: 60px;
 }
 
 .align-items-center {
