@@ -5,6 +5,11 @@ import pandas as pd
 from sklearn import model_selection
 from sklearn.preprocessing import LabelEncoder as LE
 from sklearn.linear_model import LinearRegression as LR
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+import matplotlib as mpl
+import itertools
+import warnings
 
 #数据的预处理
 def Pre_data(Old_Csv_Path, Disting_Path, New_Csv_Path):
@@ -172,7 +177,6 @@ def top_job_station_pred(new_csv_data, date_path):
 
     return Type
 
-
 #城市薪资, 忽略职业,自变量是城市和时间，因变量是城市薪资
 def top_city_wage_pred(new_csv_data, date_path):
 
@@ -279,31 +283,30 @@ def top_city_station_pred(new_csv_data, date_path):
 
     return City
 
-'''
-with open('./station_City.txt', 'a', encoding='utf-8') as f:
-    for k, v in City.items():
-        s = k
-        t = ', '.join(str(i) for i in v)
-        f.write(s + '\n')
-        f.write(t + '\n')
-'''
+
 def job_wage_pred(new_csv_data, date_path):
-    zhaopin = new_csv_data.drop(columns=['location'])
-    zhaopin = zhaopin.drop(zhaopin.loc[~zhaopin.type.str.contains('前端')].index)
-    data = zhaopin.groupby('data')
-    data.mean()['salary']
-    print((data))
-    # new_data = pd.DataFrame(columns=['date', 'avg'])
-    # for key, value in data:
-    #     tmp = value.drop(columns=['type'])
-    #     tmp['avg'] = value.mean()['salary']
-    #     print(tmp)
-    #     new_data = pd.concat([new_data, tmp])
-    # new_data.index = np.arange(len(new_data.index))
+    zhaopin_org = new_csv_data.drop(columns=['location'])
+    new_data = pd.DataFrame(columns=['date', 'avg', 'type'])
+    JobDis = ['前端', '后端', '运维', '数据', '产品', '设计', '运营', '市场', '人事', '高级管理', '销售', '金融', '医疗健康', '物流', '其他']
+    # JobDis = ['前端']
+    for item in JobDis:
+        zhaopin = zhaopin_org.drop(zhaopin_org.loc[~zhaopin_org.type.str.contains(item)].index)
+        data = zhaopin.groupby('date')
+        # data.mean()['salary']
+        for key, value in data:
+            tmp = value
+            tmp['avg'] = value.mean()['salary']
+            tmp = tmp.drop(columns=['salary'])
+            print(tmp)
+            new_data = pd.concat([new_data, tmp])
+        temp_data=new_data.drop(new_data.loc[~new_data.type.str.contains(item)].index)
+        temp_data = temp_data.drop_duplicates()
+        plt.plot(temp_data['date'], temp_data['avg'])
+        plt.show()
+    new_data = new_data.drop_duplicates()
+    new_data.index = np.arange(len(new_data.index))
     # print(new_data)
-
-
-
+    new_data.to_csv('./salary.csv', index=0, encoding='utf-8_sig')
 
 if __name__ == '__main__' :
 
@@ -314,6 +317,7 @@ if __name__ == '__main__' :
 
     # zhaopin_data = Pre_data(Old_Csv_Path, Disting_Path , New_Csv_Path)
     zhaopin_data=pd.read_csv('./new_data.csv')
+
     job_wage_pred(zhaopin_data, Date_Path)
     # Job_wage = top_job_wage_pred(zhaopin_data, Date_Path)
     # print(Job_wage)
