@@ -174,7 +174,7 @@
                         </div>
                         <div class="d-flex bg-white has-shadow" style="margin-top: 10px;">
                             <input class="cityinput " style="width: 60px;height: 30px;font-size: 14px;font-weight: bold;margin:10px " id="city_select_5" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
-                            <select style="width: 60px;height: 30px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: bold;padding-left: 2px;" value="前端">
+                            <select style="width: 60px;height: 30px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: bold;padding-left: 2px;" value="前端" id="industry_select_4">
                                 <option selected>前端</option>
                                 <option>后端</option>
                                 <option>运维</option>
@@ -191,7 +191,7 @@
                                 <option>高级管理</option>
                                 <option>其他行业</option>
                             </select>
-                            <button type="button " class="btn btn-info " style="height:30px;margin:11px; ">
+                            <button type="button " class="btn btn-info " style="height:30px;margin:11px; " onclick="getInIndustryCityEducationPie()">
                                 搜索
                             </button>
                             <div class="wrapper" style="margin-top: 60px;margin-left: -240px">

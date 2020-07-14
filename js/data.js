@@ -5,7 +5,7 @@ window.onload = function() {
     getInIndustryPie();
     getInIndustryWageBar();
     getInJob();
-    getInIndustryCityEducationPie();  // 等待接口
+    getInIndustryCityEducationPie();
     getInCityCompound();
     getInList();
 //数据预测界面
@@ -14,9 +14,9 @@ window.onload = function() {
     getInIndustryPredictLine();  // 等待接口
     getInCityPredictLine();  // 等待接口
 //数据监控界面
-    getInCityIndustryEducationQueryStack();  // 等待接口
-    getInCityWageAndJobQueryBar();  // 等待接口
-    getInIndustryWageAndJobQueryStack(); // 等待接口
+    getInIndustryWageAndJobQueryStack();
+    getInCityWageAndJobQueryBar();
+    getInCityIndustryEducationQueryStack();
 }
 
 
@@ -703,46 +703,56 @@ function getInWage() {
 
 //从业人员学历分布图点击查询
 function getInIndustryCityEducationPie(){
-    // 基于准备好的dom，初始化echarts实例
-    var industry_city_education_pie = echarts.init(document.getElementById('industry_city_education_pie'), 'light');
-    var industry_city_education_pie_option = {
-        title: {
-            text: '从业人员学历分布图',
-            //subtext: '暂时虚构',
-            left: 'center',
-            align: 'right',
-            padding: [5, 10]
+    var city = document.getElementById('city_select_5').value;
+    var type = document.getElementById('industry_select_4').value;
+    var sel_in = "?location=" + city + "&type=" + type;
+    $.ajax({
+        url: "http://114.55.245.217:5000/getEducation" + sel_in,
+        type: "get",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            if (data.code == 1) {
+                var industry_city_education_pie = echarts.init(document.getElementById('industry_city_education_pie'), 'light');
+                var legend_data = [];
+                var series_data = [];
+                var chart_data = data.eduPie[0];
+                ['大专', '本科', '硕士', '博士'].forEach(function(education){
+                    if (chart_data.hasOwnProperty(education)){
+                        legend_data.push(education);
+                        series_data.push({value: chart_data[education], name: education});
+                    }
+                })
+
+                var industry_city_education_pie_option = {
+                    title: {
+                        text: '从业人员学历分布图',
+                        left: 'center',
+                        align: 'right',
+                        padding: [5, 10]
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    },
+                    legend: {
+                        data: legend_data,//['大专', '本科', '硕士', '博士'],
+                        bottom: 0
+                    },
+                    series: [{
+                        name: '学历要求',
+                        type: 'pie',
+                        radius: ['40%', '60%'],
+                        avoidLabelOverlap: false,
+                        data: series_data
+                    }]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                industry_city_education_pie.setOption(industry_city_education_pie_option);
+            }
         },
-        tooltip: {
-            trigger: 'item',
-            formatter: '{a} <br/>{b} : {c} ({d}%)'
-        },
-        legend: {
-            data: ['大专', '本科', '硕士', '博士'],
-            bottom: 0
-        },
-        series: [{
-            name: '学历要求',
-            type: 'pie',
-            radius: ['40%', '60%'],
-            avoidLabelOverlap: false,
-            data: [{
-                value: 335,
-                name: '大专'
-            }, {
-                value: 310,
-                name: '本科'
-            }, {
-                value: 234,
-                name: '硕士'
-            }, {
-                value: 135,
-                name: '博士'
-            }]
-        }]
-    };
-    // 使用刚指定的配置项和数据显示图表。
-    industry_city_education_pie.setOption(industry_city_education_pie_option);
+    });
+
 }
 
 
@@ -1290,204 +1300,274 @@ function getInCityPredictLine() {
 //以下为数据监控页面相关内容
 //数据监控页面各行业岗位薪资和岗位数查询次数
 function getInIndustryWageAndJobQueryStack(){
-    var industry_wage_and_job_query_stack = echarts.init(document.getElementById('industry_wage_and_job_query_stack'), 'light');
-    var industry_wage_and_job_query_stack_option = {
-        title: {
-            text: '各行业岗位薪资和岗位数查询次数',
-            subtext: '暂时虚构',
-            left: 'center',
-            align: 'right'
-        },
-        toolbox: {
-            feature: {
-                dataZoom: {
-                    yAxisIndex: 'none'
-                },
-                restore: {},
-                saveAsImage: {}
+    $.ajax({
+        url: "http://114.55.245.217:5000/getIndustryBuried",
+        type: "get",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            if (data.code == 1) {
+                var chart_data = data.cityPie;
+                var map = {num: '岗位数量', wage: '薪资'};
+                var industry_wage_and_job_query_stack = echarts.init(document.getElementById('industry_wage_and_job_query_stack'), 'light');
+                var industry_wage_and_job_query_stack_option = {
+                    title: {
+                        text: '各行业岗位薪资和岗位数查询次数',
+                        left: 'center',
+                        align: 'right'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: function(data){
+                            var tip = data[0].value['name'] + '<br/>' + '岗位数量: ' + data[0].value['num'] + '<br/>' + '薪资: ' + data[0].value['wage'];
+                            return tip;
+                        }
+                    },
+                    toolbox: {
+                        feature: {
+                            dataView: {
+                                show: true,
+                                readOnly: false
+                            },
+                            magicType: {
+                                show: true,
+                                type: ['line', 'bar']
+                            },
+                            restore: {
+                                show: true
+                            },
+                            saveAsImage: {
+                                show: true
+                            }
+                        }
+                    },
+                    legend: {
+                        data: ['num', 'wage'],
+                        left: 10,
+                        formatter:  function(name){
+                            return map[name];
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    dataset: {
+                        dimensions: ['name', 'num', 'wage'],
+                        source: chart_data
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        // data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业']
+                    }],
+                    yAxis: [{
+                        name: '次数(查询)',
+                        type: 'value'
+                    }],
+                    series: [{
+                        // name: '薪资',
+                        type: 'bar',
+                        stack: '数据',
+                        // data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
+                    }, {
+                        // name: '岗位数',
+                        type: 'bar',
+                        stack: '数据',
+                        // data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
+                    }]
+                };
+                industry_wage_and_job_query_stack.setOption(industry_wage_and_job_query_stack_option);
             }
-        },
-        tooltip: {
-            trigger: 'axis',
-        },
-        toolbox: {
-            feature: {
-                dataView: {
-                    show: true,
-                    readOnly: false
-                },
-                magicType: {
-                    show: true,
-                    type: ['line', 'bar']
-                },
-                restore: {
-                    show: true
-                },
-                saveAsImage: {
-                    show: true
-                }
-            }
-        },
-        legend: {
-            data: ['薪资', '岗位数'],
-            left: 10
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: [{
-            type: 'category',
-            data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业']
-        }],
-        yAxis: [{
-            name: '次数(查询)',
-            type: 'value'
-        }],
-        series: [{
-            name: '薪资',
-            type: 'bar',
-            stack: '数据',
-            data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
-        }, {
-            name: '岗位数',
-            type: 'bar',
-            stack: '数据',
-            data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
-        }]
-    };
-    industry_wage_and_job_query_stack.setOption(industry_wage_and_job_query_stack_option);
+        }
+    });
+
 }
 
 //数据监控页面各城市行业薪资和岗位数量查询次数
 function getInCityWageAndJobQueryBar(){
-    var city_wage_and_job_query_bar = echarts.init(document.getElementById('city_wage_and_job_query_bar'), 'light');
-    var city_wage_and_job_query_bar_option = {
-        title: {
-            text: '各城市查询次数',
-            subtext: '暂时虚构',
-            left: 'center',
-            align: 'right'
-        },
-        toolbox: {
-            feature: {
-                dataView: {
-                    show: true,
-                    readOnly: false
-                },
-                magicType: {
-                    show: true,
-                    type: ['line', 'bar']
-                },
-                restore: {
-                    show: true
-                },
-                saveAsImage: {
-                    show: true
-                }
+    $.ajax({
+        url: "http://114.55.245.217:5000/getCityBuried",
+        type: "get",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            if (data.code == 1) {
+                var chart_data = data.cityPie;
+                var city_wage_and_job_query_bar = echarts.init(document.getElementById('city_wage_and_job_query_bar'), 'light');
+                var city_wage_and_job_query_bar_option = {
+                    title: {
+                        text: '各城市查询次数',
+                        // subtext: '暂时虚构',
+                        left: 'center',
+                        align: 'right'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: function(params) {
+                            return '查询次数' + '<br />' + params[0].name + ': ' + params[0].data.value;
+                        }
+                    },
+                    toolbox: {
+                        feature: {
+                            dataView: {
+                                show: true,
+                                readOnly: false
+                            },
+                            magicType: {
+                                show: true,
+                                type: ['line', 'bar']
+                            },
+                            restore: {
+                                show: true
+                            },
+                            saveAsImage: {
+                                show: true
+                            }
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '3%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    dataset:{
+                        dimensions: ['name', 'value'],
+                        source: chart_data
+                    },
+                    xAxis: {
+                        type: 'category',
+                        //data: ['北京', '上海', '广州', '深圳', '武汉', '杭州', '重庆', '南京', '宁波', '天津', '合肥', '长沙', '大连'],
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 45
+                        }
+                    },
+                    yAxis: {
+                        name: '次数(查询)',
+                        type: 'value',
+                    },
+                    series: [{
+                        // data: [35709, 41100, 44547, 47697, 34821, 34252, 42352, 44406, 47697, 34821, 45194, 41100, 34821],
+                        type: 'bar'
+                    }]
+                };
+                city_wage_and_job_query_bar.setOption(city_wage_and_job_query_bar_option);
             }
-        },
-        grid: {
-            left: '3%',
-            right: '3%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'category',
-            data: ['北京', '上海', '广州', '深圳', '武汉', '杭州', '重庆', '南京', '宁波', '天津', '合肥', '长沙', '大连'],
-        },
-        yAxis: {
-            name: '次数(查询)',
-            type: 'value',
-        },
-        series: [{
-            data: [35709, 41100, 44547, 47697, 34821, 34252, 42352, 44406, 47697, 34821, 45194, 41100, 34821],
-            type: 'bar'
-        }]
-    };
-    city_wage_and_job_query_bar.setOption(city_wage_and_job_query_bar_option);
+        }
+    });
 }
 
 //数据监控页面不同学历的用户对城市与行业的倾向图点击查询
 function getInCityIndustryEducationQueryStack(){
-    var city_industry_education_query_stack = echarts.init(document.getElementById('city_industry_education_query_stack'), 'light');
-    var city = '北京';
-    var city_industry_education_query_stack_option = {
-        title: {
-            text: '不同学历的用户对' + city + '各行业的倾向',
-            //subtext: '暂时虚构',
-            left: 'center',
-            align: 'right'
-        },
-        toolbox: {
-            feature: {
-                dataView: {
-                    show: true,
-                    readOnly: false
-                },
-                magicType: {
-                    show: true,
-                    type: ['line', 'bar']
-                },
-                restore: {
-                    show: true
-                },
-                saveAsImage: {
-                    show: true
-                }
+    var city = document.getElementById('city_select_4').value;
+    var sel_in = '?location=' + city;
+    $.ajax({
+        url: "http://114.55.245.217:5000/getListBuried" + sel_in,
+        type: "get",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            if (data.code == 1) {
+                var chart_data = data.eduPie[0];
+
+                var industry_list = ['前端', '后端', '运维', '数据', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他'];
+                var education_list = ['大专', '本科', '硕士', '博士'];
+                var education_per_list = [];
+                education_list.forEach(function(education){
+                    education_per_list[education] = [];
+                });
+                console.log(education_per_list);
+                industry_list.forEach(function(industry){
+                    education_list.forEach(function(education){
+                        if (chart_data[industry].hasOwnProperty(education)){
+                            education_per_list[education].push(chart_data[industry][education])
+                        }
+                        else{
+                            education_per_list[education].push(0);
+                        }
+                    })
+                })
+
+                var city_industry_education_query_stack = echarts.init(document.getElementById('city_industry_education_query_stack'), 'light');
+                var city_industry_education_query_stack_option = {
+                    title: {
+                        text: '不同学历的用户对' + city + '各行业的倾向',
+                        //subtext: '暂时虚构',
+                        left: 'center',
+                        align: 'right'
+                    },
+                    toolbox: {
+                        feature: {
+                            dataView: {
+                                show: true,
+                                readOnly: false
+                            },
+                            magicType: {
+                                show: true,
+                                type: ['line', 'bar']
+                            },
+                            restore: {
+                                show: true
+                            },
+                            saveAsImage: {
+                                show: true
+                            }
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                    },
+                    legend: {
+                        data: education_list,
+                        top: 25
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        data: industry_list,
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 30
+                        }
+                    }],
+                    yAxis: [{
+                        name: '次数(查询)',
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: '大专',
+                        type: 'bar',
+                        stack: '学历',
+                        data: education_per_list['大专']
+                    }, {
+                        name: '本科',
+                        type: 'bar',
+                        stack: '学历',
+                        data: education_per_list['本科']
+                    }, {
+                        name: '硕士',
+                        type: 'bar',
+                        stack: '学历',
+                        data: education_per_list['硕士']
+                    }, {
+                        name: '博士',
+                        type: 'bar',
+                        stack: '学历',
+                        data: education_per_list['博士']
+                    }]
+                };
+                city_industry_education_query_stack.setOption(city_industry_education_query_stack_option);
             }
-        },
-        tooltip: {
-            trigger: 'axis',
-        },
-        legend: {
-            data: ['大专', '本科', '硕士', '博士'],
-            top: 25
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: [{
-            type: 'category',
-            data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业'],
-            axisLabel: {
-                interval: 0,
-                rotate: 60
-            }
-        }],
-        yAxis: [{
-            name: '次数(查询)',
-            type: 'value'
-        }],
-        series: [{
-            name: '大专',
-            type: 'bar',
-            stack: '学历',
-            data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
-        }, {
-            name: '本科',
-            type: 'bar',
-            stack: '学历',
-            data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
-        }, {
-            name: '硕士',
-            type: 'bar',
-            stack: '学历',
-            data: [7546, 6259, 9917, 9023, 5475, 7464, 5893, 8421, 6306, 9343, 7501, 7646, 9102, 9106]
-        }, {
-            name: '博士',
-            type: 'bar',
-            stack: '学历',
-            data: [5420, 8022, 7632, 9238, 8007, 6596, 8910, 7619, 5210, 9494, 8242, 6501, 7524, 5787]
-        }]
-    };
-    city_industry_education_query_stack.setOption(city_industry_education_query_stack_option);
+        }
+    });
 }
 
 function changeInput_city_select_4(obj) {
