@@ -158,8 +158,9 @@
 
                     </div>
                     <div class="col-md-3  col-12">
-                        <div id="word_colud" class="d-flex bg-white has-shadow" style="width: 100%;height:300px;">
-                            <h3>词云</h3>
+                        <div id="word_colud" class="d-flex bg-white has-shadow" style="vertical-align: middle;text-align: center;width: 100%;height:300px;">
+<!--                            <h3>词云</h3>-->
+                            <img style="width: 240px;margin: 0 auto;" src="./fonts/words_cloud.png"></i>
                             <!-- <div class="wrapper">
                                 <div class="tagcloud ">
                                     <a href="#">关键词1</a>
@@ -238,7 +239,7 @@
                             <option>金融</option>
                             <option>医疗健康</option>
                             <option>高级管理</option>
-                            <option>其他行业</option>
+                            <option>其他</option>
                         </select>
                         <select class="time_span_select_1 col-md-3" style="width: 330px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" value="本科" id="education_select_1">
                             <option value="博士">博士</option>
@@ -347,7 +348,7 @@
                         <option>金融</option>
                         <option>医疗健康</option>
                         <option>高级管理</option>
-                        <option>其他行业</option>
+                        <option>其他</option>
                     </datalist>
                     <!--wrapper-->
                     <button type="button" class="btn btn-info" style="width:50px;" onclick="getInIndustryPredictLine()">查询</button>
@@ -383,6 +384,22 @@
                 </div>
                 <div class="col-md-2 " style="width: 2%;height:400px;"></div>
                 <div id="city_predict_line" class="col-lg-6 bg-white has-shadow" style="width: 800px;height:400px;">折线图</div>
+            </div>
+            <div class="col-lg-12 bg-white has-shadow" style="width: 89%;height:500px;margin: 30px;">
+                <div class="row" style="margin-left: 2px;">
+                    <select class="time_span_select_1 col-md-3" style="width: 330px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" value="本科" id="education_select_2">
+                        <option value="博士">博士</option>
+                        <option value="硕士">硕士</option>
+                        <option value="本科" selected>本科</option>
+                        <option value="大专">大专</option>
+                    </select>
+                    <button type="button " class="btn btn-info " style="height: 34px;margin-top: 10px;margin-left: 25px; " onclick="getInEducationPredictLine()">
+                        搜索
+                    </button>
+                </div>
+                <div id="education_predict_line" style="width: 1100px;height: 400px;">
+                    <h3>不同学历的岗位薪资和岗位数量预测图</h3>
+                </div>
             </div>
         </div>
         <!-- 数据监控 -->

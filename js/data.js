@@ -13,6 +13,7 @@ window.onload = function() {
     getInPrevailingIndustries(); // 等待接口
     getInIndustryPredictLine();  // 等待接口
     getInCityPredictLine();  // 等待接口
+    getInEducationPredictLine();  // 等待接口
 //数据监控界面
     getInIndustryWageAndJobQueryStack();
     getInCityWageAndJobQueryBar();
@@ -1275,7 +1276,7 @@ function getInIndustryPredictLine() {
             }
         },
         legend: {
-            data: ['薪资', '数量'],
+            data: ['岗位薪资', '岗位数量'],
             left: 10
         },
         dataZoom: [{
@@ -1309,13 +1310,13 @@ function getInIndustryPredictLine() {
             type: 'value'
         }],
         series: [{
-            name: '薪资',
+            name: '岗位薪资',
             type: 'line',
             data: [
                 17870, 6507, 21245, 12818, 19352, 10715, 7270, 17915, 22833, 12027, 24587, 9229, 7938, 9102, 8456, 29845, 13169, 6650, 8860, 17846, 12809, 23902, 22048, 12531, 25484, 17772, 19309, 25684, 13881, 7720
             ]
         }, {
-            name: '数量',
+            name: '岗位数量',
             type: 'line',
             yAxisIndex: 1,
             data: [
@@ -1358,7 +1359,7 @@ function getInCityPredictLine() {
             }
         },
         legend: {
-            data: ['薪资', '数量'],
+            data: ['岗位薪资', '岗位数量'],
             left: 10
         },
         dataZoom: [{
@@ -1392,13 +1393,13 @@ function getInCityPredictLine() {
             type: 'value'
         }],
         series: [{
-            name: '薪资',
+            name: '岗位薪资',
             type: 'line',
             data: [
                 17870, 6507, 21245, 12818, 19352, 10715, 7270, 17915, 22833, 12027, 24587, 9229, 7938, 9102, 8456, 29845, 13169, 6650, 8860, 17846, 12809, 23902, 22048, 12531, 25484, 17772, 19309, 25684, 13881, 7720
             ]
         }, {
-            name: '数量',
+            name: '岗位数量',
             type: 'line',
             yAxisIndex: 1,
             data: [
@@ -1408,6 +1409,102 @@ function getInCityPredictLine() {
     };
     // 使用刚指定的配置项和数据显示图表。
     city_predict_line.setOption(city_predict_line_option);
+}
+
+//不同学历的岗位薪资和数量预测图点击查询
+function getInEducationPredictLine() {
+    var education_predict_line = echarts.init(document.getElementById('education_predict_line'), 'light');
+    var education = document.getElementById('education_select_2').value;
+    // var education_predict_line_data = [];
+    // $.ajax({
+    //     url: "http://114.55.245.217:5000/getIndustryWage ",
+    //     type: "get",
+    //     data: {},
+    //     dataType: "json",
+    //     success: function (data) {
+    //         if (data.code == 1) {
+    //             education_predict_line_data = data.EducationPie;
+                var education_predict_line_option = {
+                    title: {
+                        text: education + '岗位数量和平均薪资折线图',
+                        subtext: '纯属虚构',
+                        left: 'center',
+                        align: 'right'
+                    },
+                    toolbox: {
+                        feature: {
+                            dataZoom: {
+                                yAxisIndex: 'none'
+                            },
+                            restore: {},
+                            saveAsImage: {}
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            animation: false,
+                            label: {
+                                backgroundColor: '#505765'
+                            }
+                        }
+                    },
+                    legend: {
+                        data: ['岗位薪资', '岗位数量'],
+                        left: 150,
+                        top: 20
+                    },
+                    dataZoom: [{
+                        show: true,
+                        realtime: true,
+                        start: 65,
+                        end: 85
+                    }, {
+                        type: 'inside',
+                        realtime: true,
+                        start: 65,
+                        end: 85
+                    }],
+                    xAxis: [{
+                        type: 'category',
+                        boundaryGap: false,
+                        axisLine: {
+                            onZero: false
+                        },
+                        data: [
+                            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                        ]
+                    }],
+                    yAxis: [{
+                        name: '薪资(元)',
+                        type: 'value',
+                        max: 30000
+                    }, {
+                        name: '数量',
+                        max: 200,
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: '岗位薪资',
+                        type: 'line',
+                        data: [
+                            17870, 6507, 21245, 12818, 19352, 10715, 7270, 17915, 22833, 12027, 24587, 9229, 7938, 9102, 8456, 29845, 13169, 6650, 8860, 17846, 12809, 23902, 22048, 12531, 25484, 17772, 19309, 25684, 13881, 7720
+                        ]
+                    }, {
+                        name: '岗位数量',
+                        type: 'line',
+                        yAxisIndex: 1,
+                        data: [
+                            65, 90, 98, 193, 41, 183, 169, 22, 15, 12, 128, 141, 141, 151, 38, 193, 150, 48, 177, 45, 129, 111, 83, 49, 77, 77, 164, 126, 46, 15
+                        ]
+                    }]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                education_predict_line.setOption(education_predict_line_option);
+    //         };
+    //     }
+    // });
 }
 
 
@@ -1426,71 +1523,16 @@ function getInIndustryWageAndJobQueryStack(){
                 var map = {num: '岗位数量', wage: '薪资'};
                 var industry_wage_and_job_query_stack = echarts.init(document.getElementById('industry_wage_and_job_query_stack'), 'light');
                 var industry_wage_and_job_query_stack_option = {
-                    title: {
-                        text: '各行业岗位薪资和岗位数查询次数',
-                        left: 'center',
-                        align: 'right'
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        formatter: function(data){
-                            var tip = data[0].value['name'] + '<br/>' + '岗位数量: ' + data[0].value['num'] + '<br/>' + '薪资: ' + data[0].value['wage'];
-                            return tip;
-                        }
-                    },
-                    toolbox: {
-                        feature: {
-                            dataView: {
-                                show: true,
-                                readOnly: false
-                            },
-                            magicType: {
-                                show: true,
-                                type: ['line', 'bar']
-                            },
-                            restore: {
-                                show: true
-                            },
-                            saveAsImage: {
-                                show: true
-                            }
-                        }
-                    },
-                    legend: {
-                        data: ['num', 'wage'],
-                        left: 10,
-                        formatter:  function(name){
-                            return map[name];
-                        }
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    dataset: {
-                        dimensions: ['name', 'num', 'wage'],
-                        source: chart_data
-                    },
-                    xAxis: [{
+                    xAxis: {
                         type: 'category',
-                        // data: ['前端', '运维', '算法', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他行业']
-                    }],
-                    yAxis: [{
-                        name: '次数(查询)',
+                        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    },
+                    yAxis: {
                         type: 'value'
-                    }],
+                    },
                     series: [{
-                        // name: '薪资',
-                        type: 'bar',
-                        stack: '数据',
-                        // data: [8367, 7419, 7259, 7883, 5134, 6405, 7003, 9411, 6925, 6352, 9918, 7034, 9133, 6150]
-                    }, {
-                        // name: '岗位数',
-                        type: 'bar',
-                        stack: '数据',
-                        // data: [7141, 5191, 9805, 7118, 9543, 7030, 9930, 6287, 5780, 6709, 7814, 6036, 5901, 7775]
+                        data: [820, 932, 901, 934, 1290, 1330, 1320],
+                        type: 'line'
                     }]
                 };
                 industry_wage_and_job_query_stack.setOption(industry_wage_and_job_query_stack_option);
