@@ -4,10 +4,10 @@ window.onload = function() {
     getInCityWageBar();
     getInIndustryPie();
     getInIndustryWageBar();
-    getInJob();
+    getInJob('default');
     getInIndustryCityEducationPie();
-    getInCityCompound();
-    getInList();
+    getInCityCompound('default');
+    getInList('default');  // 待埋点
 //数据预测界面
     getInPrevailingCities();  // 等待接口
     getInPrevailingIndustries(); // 等待接口
@@ -280,7 +280,7 @@ function getInIndustryWageBar() {
 }
 
 // 地图薪资按钮点击时的请求
-function getInJob() {
+function getInJob(mark) {
     var mapdata = [];
     var sel_in = document.getElementById('industry_select_1').value;
     $.ajax({
@@ -290,6 +290,17 @@ function getInJob() {
         dataType: "json",
         success: function(data) {
             if (data.code == 1) {
+                if (mark === 'search') {
+                    $.ajax({
+                        url: "http://114.55.245.217:5000/IndustryNumBuried/" + sel_in,
+                        type: "get",
+                        data: {},
+                        dataType: "json",
+                        success: function (data) {
+
+                        }
+                    });
+                }
                 mapdata = [{
                         name: "南海诸岛",
                         value: 0
@@ -501,6 +512,15 @@ function getInWage() {
         dataType: "json",
         success: function(data) {
             if (data.code == 1) {
+                $.ajax({
+                    url: "http://114.55.245.217:5000/IndustryWageBuried/" + sel_in,
+                    type: "get",
+                    data: {},
+                    dataType: "json",
+                    success: function (data) {
+
+                    }
+                });
                 mapdata = [{
                         name: "南海诸岛",
                         value: 0
@@ -757,7 +777,7 @@ function getInIndustryCityEducationPie(){
 
 
 //城市行业薪资与岗位数量复合图点击查询时的请求
-function getInCityCompound() {
+function getInCityCompound(mark) {
     var industry_wage_compound = echarts.init(document.getElementById('industry_wage_compound'), 'light');
     var sel_in = document.getElementById('city_select_1').value;
     $.ajax({
@@ -767,6 +787,17 @@ function getInCityCompound() {
         dataType: "json",
         success: function(data) {
             if (data.code == 1) {
+                if (mark === 'search'){
+                    $.ajax({
+                        url: "http://114.55.245.217:5000/CityBuried/" + sel_in,
+                        type: "get",
+                        data: {},
+                        dataType: "json",
+                        success: function (data) {
+
+                        }
+                    });
+                }
                 let xaxis_data = [];
                 let yaxis_average = [];
                 let yaxis_mid = [];
@@ -882,7 +913,7 @@ function getInCityCompound() {
 }
 
 //工作信息列表加载时的默认请求
-function getInList() {
+function getInList(mark) {
     var city = document.getElementById('city_select_3').value;
     var type = document.getElementById('industry_select_3').value;
     var education = document.getElementById('education_select_1').value;
@@ -914,7 +945,7 @@ function getInList() {
                     company_td.innerHTML = data_row['companyName'];
                     city_td.innerHTML = data_row['cityName'];
                     education_td.innerHTML = data_row['edu'];
-                    salary_td.innerHTML = data_row['salary'];
+                    salary_td.innerHTML = data_row['salary'].split('-').map(function(bound){return parseInt(bound * 10) + 'k'}).join('-');
                     time_td.innerHTML = data_row['putdata'];
                     new_tr.appendChild(id_td);
                     new_tr.appendChild(job_td);
@@ -978,69 +1009,111 @@ function getInPrevailingCities(){
     data = {
         code: 1,
         cityList: {
-            0: {
+            '0': {
                 cityName: '北京',
-                wageIncreasingRate: '10%',
-                jobIncreasingRate: '10%'
+                wageIncreasingRate: '9.0%',
+                jobIncreasingRate: '9.4%',
+                rank_status: 'droping',
+                job_status: 'droping',
+                wage_status: 'droping'
             },
-            1: {
+            '1': {
                 cityName: '上海',
-                wageIncreasingRate: '9%',
-                jobIncreasingRate: '9%'
+                wageIncreasingRate: '6.1%',
+                jobIncreasingRate: '8.0%',
+                rank_status: 'droping',
+                job_status: 'rising',
+                wage_status: 'droping'
             },
-            2: {
+            '2': {
                 cityName: '广州',
-                wageIncreasingRate: '8%',
-                jobIncreasingRate: '8%'
+                wageIncreasingRate: '5.5%',
+                jobIncreasingRate: '6.9%',
+                rank_status: 'rising',
+                job_status: 'rising',
+                wage_status: 'rising'
             },
-            3: {
+            '3': {
                 cityName: '深圳',
-                wageIncreasingRate: '7%',
-                jobIncreasingRate: '7%'
+                wageIncreasingRate: '5.4%',
+                jobIncreasingRate: '6.5%',
+                rank_status: 'rising',
+                job_status: 'droping',
+                wage_status: 'rising'
             },
-            4: {
+            '4': {
                 cityName: '杭州',
-                wageIncreasingRate: '6%',
-                jobIncreasingRate: '6%'
+                wageIncreasingRate: '4.7%',
+                jobIncreasingRate: '5.5%',
+                rank_status: 'droping',
+                job_status: 'droping',
+                wage_status: 'rising'
             },
-            5: {
+            '5': {
                 cityName: '厦门',
-                wageIncreasingRate: '5%',
-                jobIncreasingRate: '5%'
+                wageIncreasingRate: '3.7%',
+                jobIncreasingRate: '5.4%',
+                rank_status: 'droping',
+                job_status: 'rising',
+                wage_status: 'droping'
             },
-            6: {
+            '6': {
                 cityName: '西安',
-                wageIncreasingRate: '4%',
-                jobIncreasingRate: '4%'
+                wageIncreasingRate: '3.7%',
+                jobIncreasingRate: '4.9%',
+                rank_status: 'droping',
+                job_status: 'droping',
+                wage_status: 'rising'
             },
-            7: {
+            '7': {
                 cityName: '武汉',
-                wageIncreasingRate: '3%',
-                jobIncreasingRate: '3%'
+                wageIncreasingRate: '3.2%',
+                jobIncreasingRate: '3.8%',
+                rank_status: 'droping',
+                job_status: 'droping',
+                wage_status: 'droping'
             },
-            8: {
+            '8': {
                 cityName: '重庆',
-                wageIncreasingRate: '2%',
-                jobIncreasingRate: '2%'
+                wageIncreasingRate: '2.8%',
+                jobIncreasingRate: '3.8%',
+                rank_status: 'rising',
+                job_status: 'droping',
+                wage_status: 'droping'
             },
-            9: {
+            '9': {
                 cityName: '南京',
-                wageIncreasingRate: '1%',
-                jobIncreasingRate: '1%'
-            },
+                wageIncreasingRate: '1.8%',
+                jobIncreasingRate: '3.0%',
+                rank_status: 'droping',
+                job_status: 'rising',
+                wage_status: 'rising'
+            }
         }
     }
     for (let key in data.cityList) {
         var data_row = data.cityList[key];
         var new_tr = document.createElement('tr');
         var rank_td = document.createElement('td');
+        var img_rank = document.createElement('img');
+        img_rank.setAttribute('src', './fonts/' + data.cityList[key]['rank_status'] + '.svg');
+        img_rank.setAttribute('style', 'width: 24px;');
         var city_td = document.createElement('td');
         var wage_td = document.createElement('td');
+        var img_wage = document.createElement('img');
+        img_wage.setAttribute('src', './fonts/' + data.cityList[key]['wage_status'] + '.svg');
+        img_wage.setAttribute('style', 'width: 24px;');
         var job_td = document.createElement('td');
+        var img_job = document.createElement('img');
+        img_job.setAttribute('src', './fonts/' + data.cityList[key]['job_status'] + '.svg');
+        img_job.setAttribute('style', 'width: 24px;');
         rank_td.innerHTML = parseInt(key) + 1;
+        rank_td.appendChild(img_rank);
         city_td.innerHTML = data_row['cityName'];
         wage_td.innerHTML = data_row['wageIncreasingRate'];
+        wage_td.appendChild(img_wage);
         job_td.innerHTML = data_row['jobIncreasingRate'];
+        job_td.appendChild(img_job);
         new_tr.appendChild(rank_td);
         new_tr.appendChild(city_td);
         new_tr.appendChild(wage_td);
@@ -1057,69 +1130,111 @@ function getInPrevailingIndustries(){
     data = {
         code: 1,
         industryList: {
-            0: {
+            '0': {
                 industryName: '前端',
-                wageIncreasingRate: '10%',
-                jobIncreasingRate: '10%'
+                wageIncreasingRate: '9.0%',
+                jobIncreasingRate: '9.4%',
+                rank_status: 'droping',
+                job_status: 'droping',
+                wage_status: 'droping'
             },
-            1: {
+            '1': {
                 industryName: '后端',
-                wageIncreasingRate: '9%',
-                jobIncreasingRate: '9%'
+                wageIncreasingRate: '6.1%',
+                jobIncreasingRate: '8.0%',
+                rank_status: 'droping',
+                job_status: 'rising',
+                wage_status: 'droping'
             },
-            2: {
+            '2': {
                 industryName: '运维',
-                wageIncreasingRate: '8%',
-                jobIncreasingRate: '8%'
+                wageIncreasingRate: '5.5%',
+                jobIncreasingRate: '6.9%',
+                rank_status: 'rising',
+                job_status: 'droping',
+                wage_status: 'rising'
             },
-            3: {
+            '3': {
                 industryName: '算法',
-                wageIncreasingRate: '7%',
-                jobIncreasingRate: '7%'
+                wageIncreasingRate: '5.4%',
+                jobIncreasingRate: '6.5%',
+                rank_status: 'rising',
+                job_status: 'droping',
+                wage_status: 'rising'
             },
-            4: {
+            '4': {
                 industryName: '产品',
-                wageIncreasingRate: '6%',
-                jobIncreasingRate: '6%'
+                wageIncreasingRate: '4.7%',
+                jobIncreasingRate: '5.5%',
+                rank_status: 'droping',
+                job_status: 'droping',
+                wage_status: 'droping'
             },
-            5: {
+            '5': {
                 industryName: '运营',
-                wageIncreasingRate: '5%',
-                jobIncreasingRate: '5%'
+                wageIncreasingRate: '3.7%',
+                jobIncreasingRate: '5.4%',
+                rank_status: 'rising',
+                job_status: 'rising',
+                wage_status: 'rising'
             },
-            6: {
+            '6': {
                 industryName: '人事',
-                wageIncreasingRate: '4%',
-                jobIncreasingRate: '4%'
+                wageIncreasingRate: '3.7%',
+                jobIncreasingRate: '4.9%',
+                rank_status: 'droping',
+                job_status: 'rising',
+                wage_status: 'droping'
             },
-            7: {
+            '7': {
                 industryName: '设计',
-                wageIncreasingRate: '3%',
-                jobIncreasingRate: '3%'
+                wageIncreasingRate: '3.2%',
+                jobIncreasingRate: '3.8%',
+                rank_status: 'rising',
+                job_status: 'droping',
+                wage_status: 'rising'
             },
-            8: {
+            '8': {
                 industryName: '销售',
-                wageIncreasingRate: '2%',
-                jobIncreasingRate: '2%'
+                wageIncreasingRate: '2.8%',
+                jobIncreasingRate: '3.8%',
+                rank_status: 'rising',
+                job_status: 'droping',
+                wage_status: 'rising'
             },
-            9: {
+            '9': {
                 industryName: '物流',
-                wageIncreasingRate: '1%',
-                jobIncreasingRate: '1%'
-            },
+                wageIncreasingRate: '1.8%',
+                jobIncreasingRate: '3.0%',
+                rank_status: 'rising',
+                job_status: 'rising',
+                wage_status: 'rising'
+            }
         }
     }
     for (let key in data.industryList) {
         var data_row = data.industryList[key];
         var new_tr = document.createElement('tr');
         var rank_td = document.createElement('td');
+        var img_rank = document.createElement('img');
+        img_rank.setAttribute('src', './fonts/' + data.industryList[key]['rank_status'] + '.svg');
+        img_rank.setAttribute('style', 'width: 24px;');
         var industry_td = document.createElement('td');
         var wage_td = document.createElement('td');
+        var img_wage = document.createElement('img');
+        img_wage.setAttribute('src', './fonts/' + data.industryList[key]['wage_status'] + '.svg');
+        img_wage.setAttribute('style', 'width: 24px;');
         var job_td = document.createElement('td');
+        var img_job = document.createElement('img');
+        img_job.setAttribute('src', './fonts/' + data.industryList[key]['job_status'] + '.svg');
+        img_job.setAttribute('style', 'width: 24px;');
         rank_td.innerHTML = parseInt(key) + 1;
+        rank_td.appendChild(img_rank);
         industry_td.innerHTML = data_row['industryName'];
         wage_td.innerHTML = data_row['wageIncreasingRate'];
+        wage_td.appendChild(img_wage);
         job_td.innerHTML = data_row['jobIncreasingRate'];
+        job_td.appendChild(img_job);
         new_tr.appendChild(rank_td);
         new_tr.appendChild(industry_td);
         new_tr.appendChild(wage_td);

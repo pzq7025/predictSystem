@@ -137,10 +137,10 @@
                             <option>金融</option>
                             <option>医疗健康</option>
                             <option>高级管理</option>
-                            <option>其他行业</option>
+                            <option>其他</option>
                         </datalist>
                         <button type="button" class="btn btn-info" style="width:50px;" onclick="getInWage()">薪资</button>
-                        <button type="button" class="btn btn-info" style="width:70px;" onclick="getInJob()">岗位数</button>
+                        <button type="button" class="btn btn-info" style="width:70px;" onclick="getInJob('search')">岗位数</button>
                         <div class="wrapper">
                             <!-- <p><br/>此处为您显示检索历史</p> 加这句话要调整tagcloud的margin-top: -150px;-->
                             <div class="tagcloud ">
@@ -178,7 +178,7 @@
                                 <option selected>前端</option>
                                 <option>后端</option>
                                 <option>运维</option>
-                                <option>算法</option>
+                                <option>数据</option>
                                 <option>产品</option>
                                 <option>运营</option>
                                 <option>设计</option>
@@ -189,7 +189,7 @@
                                 <option>金融</option>
                                 <option>医疗健康</option>
                                 <option>高级管理</option>
-                                <option>其他行业</option>
+                                <option>其他</option>
                             </select>
                             <button type="button " class="btn btn-info " style="height:30px;margin:11px; " onclick="getInIndustryCityEducationPie()">
                                 搜索
@@ -206,7 +206,7 @@
                     <div id="city_choice" class="col-md-3 bg-white has-shadow" style="width: 21.5%;height:400px;margin-right: 15px;">
                         <p>请输入查询的城市名</p>
                         <input class="cityinput" id="city_select_1" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
-                        <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityCompound()">查询</button>
+                        <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityCompound('search')">查询</button>
                         <div class="wrapper">
                             <div class="tagcloud ">
                                 <a href="javascript:void(0)" onclick="changeInput_city_select_1(this)">北京</a>
@@ -222,8 +222,8 @@
                 </div>
                 <div class="bg-white has-shadow" style="width:1194px;height:400px;margin: 30px;">
                     <div class="row" style="margin-left: 2px;">
-                        <input class="cityinput col-md-3 " style="width: 225px;height: 35px;font-size: 14px;font-weight: 700;margin:10px " id="city_select_3" value="上海" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
-                        <select class="industry_select col-md-3" style="width: 225px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" name="industry_select_3" id="industry_select_3">
+                        <input class="cityinput col-md-3 " style="width: 330px;height: 35px;font-size: 14px;font-weight: 700;margin:10px " id="city_select_3" value="上海" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                        <select class="industry_select col-md-3" style="width: 330px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" name="industry_select_3" id="industry_select_3">
                             <option selected>前端</option>
                             <option>后端</option>
                             <option>运维</option>
@@ -240,21 +240,21 @@
                             <option>高级管理</option>
                             <option>其他行业</option>
                         </select>
-                        <select class="time_span_select_1 col-md-3" style="width: 125px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" value="本科" id="education_select_1">
+                        <select class="time_span_select_1 col-md-3" style="width: 330px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" value="本科" id="education_select_1">
                             <option value="博士">博士</option>
                             <option value="硕士">硕士</option>
                             <option value="本科" selected>本科</option>
                             <option value="大专">大专</option>
                         </select>
-
-                        <div class="col-md-5 ">
+                        <button type="button " class="btn btn-info " style="height: 34px;margin-top: 10px;margin-left: 25px; " onclick="getInList('search')">
+                            搜索
+                        </button>
+<!--                        <div class="col-md-5 ">-->
                             <!-- <img style="width: 30px;margin-top: 13px; " src="./fonts/money_line.svg "> -->
-                            <input class="col-md-3 " style="width: 175px;height:35px;margin:10px;margin-right: 5px;border: 1px solid #D8D8D8;border-radius: 3px;" id="min_salary" value="最低薪资(以k为单位)" onclick="this.value=''">
-                            <input class="col-md-3 " style="width: 175px;height:35px;margin:10px;margin-left: 5px;border: 1px solid #D8D8D8;border-radius: 3px; " id="max_salary" value="最高薪资(以k为单位)" onclick="this.value=''">
-                            <button type="button " class="btn btn-info " style="height:34px;margin:11px; " onclick="getInList()">
-                                搜索
-                            </button>
-                        </div>
+<!--                            <input class="col-md-3 " style="width: 175px;height:35px;margin:10px;margin-right: 5px;border: 1px solid #D8D8D8;border-radius: 3px;" id="min_salary" value="最低薪资(以k为单位)" onclick="this.value=''">-->
+<!--                            <input class="col-md-3 " style="width: 175px;height:35px;margin:10px;margin-left: 5px;border: 1px solid #D8D8D8;border-radius: 3px; " id="max_salary" value="最高薪资(以k为单位)" onclick="this.value=''">-->
+
+<!--                        </div>-->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive " style="height: 300px;">
@@ -350,7 +350,7 @@
                         <option>其他行业</option>
                     </datalist>
                     <!--wrapper-->
-                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInIndustryPredict()">查询</button>
+                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInIndustryPredictLine()">查询</button>
                     <div class="wrapper">
                         <!-- <p><br/>此处为您显示检索历史</p> 加这句话要调整tagcloud的margin-top: -150px;-->
                         <div class="tagcloud " style="margin-left: -100px;">
@@ -370,7 +370,7 @@
                 <div id="city_predict_choice" class="col-lg-4 bg-white has-shadow" style="width: 25%;height:400px;">
                     <p>请输入查询的城市名</p>
                     <input class="cityinput city_select" id="city_select_2" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
-                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityPredict()">查询</button>
+                    <button type="button" class="btn btn-info" style="width:50px;" onclick="getInCityPredictLine()">查询</button>
                     <div class="wrapper">
                         <div class="tagcloud " style="margin-left: -100px;">
                             <a href="javascript:void(0)" onclick="changeInput_city_select_2(this)">北京</a>
