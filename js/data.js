@@ -1142,72 +1142,72 @@ function getInPrevailingIndustries(){
         industryList: {
             '0': {
                 industryName: '前端',
-                wageIncreasingRate: '9.0%',
-                jobIncreasingRate: '9.4%',
+                wageIncreasingRate: '8.8%',
+                jobIncreasingRate: '9.1%',
                 rank_status: 'droping',
                 job_status: 'droping',
                 wage_status: 'droping'
             },
             '1': {
                 industryName: '后端',
-                wageIncreasingRate: '6.1%',
-                jobIncreasingRate: '8.0%',
+                wageIncreasingRate: '7.1%',
+                jobIncreasingRate: '8.2%',
                 rank_status: 'droping',
                 job_status: 'rising',
                 wage_status: 'droping'
             },
             '2': {
                 industryName: '运维',
-                wageIncreasingRate: '5.5%',
-                jobIncreasingRate: '6.9%',
+                wageIncreasingRate: '6.5%',
+                jobIncreasingRate: '7.0%',
                 rank_status: 'rising',
                 job_status: 'droping',
                 wage_status: 'rising'
             },
             '3': {
                 industryName: '算法',
-                wageIncreasingRate: '5.4%',
-                jobIncreasingRate: '6.5%',
+                wageIncreasingRate: '6.3%',
+                jobIncreasingRate: '7.2%',
                 rank_status: 'rising',
                 job_status: 'droping',
                 wage_status: 'rising'
             },
             '4': {
                 industryName: '产品',
-                wageIncreasingRate: '4.7%',
-                jobIncreasingRate: '5.5%',
+                wageIncreasingRate: '5.8%',
+                jobIncreasingRate: '5.9%',
                 rank_status: 'droping',
                 job_status: 'droping',
                 wage_status: 'droping'
             },
             '5': {
                 industryName: '运营',
-                wageIncreasingRate: '3.7%',
-                jobIncreasingRate: '5.4%',
+                wageIncreasingRate: '4.6%',
+                jobIncreasingRate: '5.3%',
                 rank_status: 'rising',
                 job_status: 'rising',
                 wage_status: 'rising'
             },
             '6': {
                 industryName: '人事',
-                wageIncreasingRate: '3.7%',
-                jobIncreasingRate: '4.9%',
+                wageIncreasingRate: '4.2%',
+                jobIncreasingRate: '4.7%',
                 rank_status: 'droping',
                 job_status: 'rising',
                 wage_status: 'droping'
             },
             '7': {
                 industryName: '设计',
-                wageIncreasingRate: '3.2%',
-                jobIncreasingRate: '3.8%',
+                wageIncreasingRate: '3.5%',
+                jobIncreasingRate: '3.3%',
                 rank_status: 'rising',
                 job_status: 'droping',
                 wage_status: 'rising'
             },
             '8': {
                 industryName: '销售',
-                wageIncreasingRate: '2.8%',
-                jobIncreasingRate: '3.8%',
+                wageIncreasingRate: '3.1%',
+                jobIncreasingRate: '3.0%',
                 rank_status: 'rising',
                 job_status: 'droping',
                 wage_status: 'rising'
@@ -1215,7 +1215,7 @@ function getInPrevailingIndustries(){
             '9': {
                 industryName: '物流',
                 wageIncreasingRate: '1.8%',
-                jobIncreasingRate: '3.0%',
+                jobIncreasingRate: '2.2%',
                 rank_status: 'rising',
                 job_status: 'rising',
                 wage_status: 'rising'
