@@ -1,5 +1,5 @@
 window.onload = function() {
-//数据分析界面
+    //数据分析界面
     getInCityPie()
     getInCityWageBar();
     getInIndustryPie();
@@ -8,13 +8,13 @@ window.onload = function() {
     getInIndustryCityEducationPie();
     getInCityCompound('default');
     getInList('default');
-//数据预测界面
-    getInPrevailingCities();  // 等待接口
+    //数据预测界面
+    getInPrevailingCities(); // 等待接口
     getInPrevailingIndustries(); // 等待接口
     getInIndustryPredictLine();
     getInCityPredictLine();
     getInEducationPredictLine();
-//数据监控界面
+    //数据监控界面
     getInIndustryWageAndJobQueryStack();
     getInCityWageAndJobQueryBar();
     getInCityIndustryEducationQueryStack();
@@ -31,7 +31,7 @@ function getInCityPie() {
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 // console.log(data.cityPie)
                 var j = 0;
@@ -45,39 +45,39 @@ function getInCityPie() {
                     j = j + 2;
                 }
                 var city_pie_option = {
-                    title: {
-                        text: '城市岗位数量占比',
-                        // subtext: '纯属虚构',
-                        left: 'center'
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: '{a} <br/>{b} : {c} ({d}%)'
-                    },
-                    // legend: {
-                    //     type: 'scroll',
-                    //     orient: 'vertical',
-                    //     right: 10,
-                    //     top: 20,
-                    //     bottom: 20,
-                    //     data: city_name,
-                    // },
-                    series: [{
-                        name: '城市名:',
-                        type: 'pie',
-                        radius: '55%',
-                        center: ['50%', '50%'],
-                        data: city_pie_data,
-                        emphasis: {
-                            itemStyle: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        title: {
+                            text: '城市岗位数量占比',
+                            // subtext: '纯属虚构',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        },
+                        // legend: {
+                        //     type: 'scroll',
+                        //     orient: 'vertical',
+                        //     right: 10,
+                        //     top: 20,
+                        //     bottom: 20,
+                        //     data: city_name,
+                        // },
+                        series: [{
+                            name: '城市名:',
+                            type: 'pie',
+                            radius: '55%',
+                            center: ['50%', '50%'],
+                            data: city_pie_data,
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
                             }
-                        }
-                    }]
-                }
-                // 使用刚指定的配置项和数据显示图表。
+                        }]
+                    }
+                    // 使用刚指定的配置项和数据显示图表。
                 city_pie.setOption(city_pie_option);
             }
         },
@@ -94,13 +94,12 @@ function getInCityWageBar() {
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
-                // console.log(data.cityWage)
-                // for (i = 0; i < 25; i++) {
-                //     city_Wage_data[i] = data.cityWage[i];
-                // }
-                city_Wage_data = data.cityWage;
+                for (var i = 0; i < 15; i++) {
+                    city_Wage_data[i] = data.cityWage[i];
+                }
+                // city_Wage_data = data.cityWage;
                 var city_wage_option = {
                     title: {
                         text: '城市薪资柱状图',
@@ -130,7 +129,7 @@ function getInCityWageBar() {
                     },
                     dataset: {
                         dimensions: ['cityName', '平均薪资', '中位薪资'],
-                        source: city_Wage_data,
+                        source: city_Wage_data
                     },
                     xAxis: {
                         type: 'category',
@@ -138,14 +137,14 @@ function getInCityWageBar() {
                             interval: 0
                         }
                     },
-                    yAxis: {name: '元/月',},
+                    yAxis: { name: '元/月', },
                     // Declare several bar series, each will be mapped
                     // to a column of dataset.source by default.
                     series: [{
                         type: 'bar'
                     }, {
                         type: 'bar'
-                    },]
+                    }, ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
                 city_wage.setOption(city_wage_option);
@@ -165,7 +164,7 @@ function getInIndustryPie() {
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 // city_pie_data = JSON.stringify(data.cityPie);
                 industry_pie_data = data.IndustryPie;
@@ -194,7 +193,7 @@ function getInIndustryPie() {
                         name: '行业名:',
                         type: 'pie',
                         radius: '55%',
-                        center: ['50%', '50%'],
+                        center: ['50%', '60%'],
                         data: industry_pie_data,
                         emphasis: {
                             itemStyle: {
@@ -223,7 +222,7 @@ function getInIndustryWageBar() {
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 industry_Wage_data = data.IndustryWage;
                 var industry_wage_option = {
@@ -273,7 +272,7 @@ function getInIndustryWageBar() {
                         type: 'bar'
                     }, {
                         type: 'bar'
-                    },]
+                    }, ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
                 industry_wage.setOption(industry_wage_option);
@@ -299,7 +298,7 @@ function getInJob(mark) {
                         type: "get",
                         data: {},
                         dataType: "json",
-                        success: function (data) {
+                        success: function(data) {
 
                         }
                     });
@@ -520,7 +519,7 @@ function getInWage() {
                     type: "get",
                     data: {},
                     dataType: "json",
-                    success: function (data) {
+                    success: function(data) {
 
                     }
                 });
@@ -725,7 +724,7 @@ function getInWage() {
 }
 
 //从业人员学历分布图点击查询
-function getInIndustryCityEducationPie(){
+function getInIndustryCityEducationPie() {
     var city = document.getElementById('city_select_5').value;
     var type = document.getElementById('industry_select_4').value;
     var sel_in = "?location=" + city + "&type=" + type;
@@ -734,16 +733,16 @@ function getInIndustryCityEducationPie(){
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 var industry_city_education_pie = echarts.init(document.getElementById('industry_city_education_pie'), 'light');
                 var legend_data = [];
                 var series_data = [];
                 var chart_data = data.eduPie[0];
-                ['大专', '本科', '硕士', '博士'].forEach(function(education){
-                    if (chart_data.hasOwnProperty(education)){
+                ['大专', '本科', '硕士', '博士'].forEach(function(education) {
+                    if (chart_data.hasOwnProperty(education)) {
                         legend_data.push(education);
-                        series_data.push({value: chart_data[education], name: education});
+                        series_data.push({ value: chart_data[education], name: education });
                     }
                 })
 
@@ -759,7 +758,7 @@ function getInIndustryCityEducationPie(){
                         formatter: '{a} <br/>{b} : {c} ({d}%)'
                     },
                     legend: {
-                        data: legend_data,//['大专', '本科', '硕士', '博士'],
+                        data: legend_data, //['大专', '本科', '硕士', '博士'],
                         bottom: 0
                     },
                     series: [{
@@ -790,13 +789,13 @@ function getInCityCompound(mark) {
         dataType: "json",
         success: function(data) {
             if (data.code == 1) {
-                if (mark === 'search'){
+                if (mark === 'search') {
                     $.ajax({
                         url: "http://114.55.245.217:5000/CityBuried/" + sel_in,
                         type: "get",
                         data: {},
                         dataType: "json",
-                        success: function (data) {
+                        success: function(data) {
 
                         }
                     });
@@ -929,15 +928,15 @@ function getInList(mark) {
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
-                if (mark === 'search'){
+                if (mark === 'search') {
                     $.ajax({
                         url: "http://114.55.245.217:5000/listBuried" + sel_in,
                         type: "get",
                         data: {},
                         dataType: "json",
-                        success: function (data) {
+                        success: function(data) {
 
                         }
                     });
@@ -959,7 +958,7 @@ function getInList(mark) {
                     company_td.innerHTML = data_row['companyName'];
                     city_td.innerHTML = data_row['cityName'];
                     education_td.innerHTML = data_row['edu'];
-                    salary_td.innerHTML = data_row['salary'].split('-').map(function(bound){return parseInt(bound * 10) + 'k'}).join('-');
+                    salary_td.innerHTML = data_row['salary'].split('-').map(function(bound) { return parseInt(bound * 10) + 'k' }).join('-');
                     time_td.innerHTML = data_row['putdata'];
                     new_tr.appendChild(id_td);
                     new_tr.appendChild(job_td);
@@ -1017,92 +1016,96 @@ function changeInput_city_select_2(obj) {
 //以下为数据预测页面相关内容
 
 //前十热门城市
-function getInPrevailingCities(){
+function getInPrevailingCities() {
     var table = document.getElementById('prevailing_cities_table');
     var body = document.getElementById('prevailing_cities_table_body');
     data = {
         code: 1,
         cityList: {
             '0': {
-                cityName: '北京',
-                wageIncreasingRate: '9.0%',
-                jobIncreasingRate: '9.4%',
+                cityName: '杭州',
+                wageIncreasingRate: '6.70%',
+                jobIncreasingRate: '8.48%',
                 rank_status: 'droping',
-                job_status: 'droping',
-                wage_status: 'droping'
+                job_status: 'rising',
+                wage_status: 'rising'
             },
             '1': {
                 cityName: '上海',
-                wageIncreasingRate: '6.1%',
-                jobIncreasingRate: '8.0%',
+                wageIncreasingRate: '7.03%',
+                jobIncreasingRate: '6.50%',
                 rank_status: 'droping',
                 job_status: 'rising',
-                wage_status: 'droping'
+                wage_status: 'rising'
             },
             '2': {
-                cityName: '广州',
-                wageIncreasingRate: '5.5%',
-                jobIncreasingRate: '6.9%',
-                rank_status: 'rising',
+                cityName: '武汉',
+                wageIncreasingRate: '4.59%',
+                jobIncreasingRate: '8.82%',
+                rank_status: 'droping',
                 job_status: 'rising',
                 wage_status: 'rising'
             },
             '3': {
-                cityName: '深圳',
-                wageIncreasingRate: '5.4%',
-                jobIncreasingRate: '6.5%',
+                cityName: '重庆',
+                wageIncreasingRate: '6.52%',
+                jobIncreasingRate: '6.14%',
                 rank_status: 'rising',
-                job_status: 'droping',
+                job_status: 'rising',
                 wage_status: 'rising'
             },
             '4': {
-                cityName: '杭州',
-                wageIncreasingRate: '4.7%',
-                jobIncreasingRate: '5.5%',
+                cityName: '西安',
+                wageIncreasingRate: '7.21%',
+                jobIncreasingRate: '4.18%',
                 rank_status: 'droping',
-                job_status: 'droping',
+                job_status: 'rising',
                 wage_status: 'rising'
             },
             '5': {
-                cityName: '厦门',
-                wageIncreasingRate: '3.7%',
-                jobIncreasingRate: '5.4%',
-                rank_status: 'droping',
+                cityName: '广州',
+                wageIncreasingRate: '5.99%',
+                jobIncreasingRate: '5.16%',
+                rank_status: 'rising',
                 job_status: 'rising',
-                wage_status: 'droping'
+                wage_status: 'rising'
             },
             '6': {
-                cityName: '西安',
-                wageIncreasingRate: '3.7%',
-                jobIncreasingRate: '4.9%',
-                rank_status: 'droping',
-                job_status: 'droping',
+                cityName: '深圳',
+                wageIncreasingRate: '6.66%',
+                jobIncreasingRate: '2.50%',
+                rank_status: 'rising',
+                job_status: 'rising',
                 wage_status: 'rising'
             },
             '7': {
-                cityName: '武汉',
-                wageIncreasingRate: '3.2%',
-                jobIncreasingRate: '3.8%',
+                cityName: '南京',
+                wageIncreasingRate: '-4.60%',
+                jobIncreasingRate: '6.55%',
                 rank_status: 'droping',
-                job_status: 'droping',
+                job_status: 'rising',
                 wage_status: 'droping'
             },
             '8': {
-                cityName: '重庆',
-                wageIncreasingRate: '2.8%',
-                jobIncreasingRate: '3.8%',
-                rank_status: 'rising',
-                job_status: 'droping',
-                wage_status: 'droping'
-            },
-            '9': {
-                cityName: '南京',
-                wageIncreasingRate: '1.8%',
-                jobIncreasingRate: '3.0%',
+                cityName: '北京',
+                wageIncreasingRate: '-2.84%',
+                jobIncreasingRate: '4.61%',
                 rank_status: 'droping',
                 job_status: 'rising',
-                wage_status: 'rising'
-            }
+                wage_status: 'droping'
+            },
+
+            '9': {
+                cityName: '厦门',
+                wageIncreasingRate: '-10.91%',
+                jobIncreasingRate: '7.10%',
+                rank_status: 'droping',
+                job_status: 'rising',
+                wage_status: 'droping'
+            },
+
+
+
         }
     }
     for (let key in data.cityList) {
@@ -1134,92 +1137,94 @@ function getInPrevailingCities(){
 }
 
 //前十热门行业
-function getInPrevailingIndustries(){
+function getInPrevailingIndustries() {
     var table = document.getElementById('prevailing_industries_table');
     var body = document.getElementById('prevailing_industries_table_body');
     data = {
         code: 1,
         industryList: {
             '0': {
-                industryName: '前端',
-                wageIncreasingRate: '8.8%',
-                jobIncreasingRate: '9.1%',
-                rank_status: 'droping',
-                job_status: 'droping',
-                wage_status: 'droping'
+                industryName: '数据',
+                wageIncreasingRate: '6.42%',
+                jobIncreasingRate: '9.92%',
+                rank_status: 'rising',
+                job_status: 'rising',
+                wage_status: 'rising'
             },
             '1': {
-                industryName: '后端',
-                wageIncreasingRate: '7.1%',
-                jobIncreasingRate: '8.2%',
+                industryName: '产品',
+                wageIncreasingRate: '8.84%',
+                jobIncreasingRate: '4.88%',
                 rank_status: 'droping',
                 job_status: 'rising',
-                wage_status: 'droping'
+                wage_status: 'rising'
             },
             '2': {
-                industryName: '运维',
-                wageIncreasingRate: '6.5%',
-                jobIncreasingRate: '7.0%',
+                industryName: '运营',
+                wageIncreasingRate: '2.30%',
+                jobIncreasingRate: '8.71%',
                 rank_status: 'rising',
-                job_status: 'droping',
+                job_status: 'rising',
                 wage_status: 'rising'
             },
             '3': {
-                industryName: '算法',
-                wageIncreasingRate: '6.3%',
-                jobIncreasingRate: '7.2%',
-                rank_status: 'rising',
-                job_status: 'droping',
+                industryName: '前端',
+                wageIncreasingRate: '4.41%',
+                jobIncreasingRate: '6.43%',
+                rank_status: 'droping',
+                job_status: 'rising',
                 wage_status: 'rising'
             },
             '4': {
-                industryName: '产品',
-                wageIncreasingRate: '5.8%',
-                jobIncreasingRate: '5.9%',
-                rank_status: 'droping',
-                job_status: 'droping',
-                wage_status: 'droping'
+                industryName: '销售',
+                wageIncreasingRate: '5.96%',
+                jobIncreasingRate: '3.44%',
+                rank_status: 'rising',
+                job_status: 'rising',
+                wage_status: 'rising'
             },
             '5': {
-                industryName: '运营',
-                wageIncreasingRate: '4.6%',
-                jobIncreasingRate: '5.3%',
+                industryName: '物流',
+                wageIncreasingRate: '4.69%',
+                jobIncreasingRate: '4.56%',
                 rank_status: 'rising',
                 job_status: 'rising',
                 wage_status: 'rising'
             },
             '6': {
+                industryName: '设计',
+                wageIncreasingRate: '3.30%',
+                jobIncreasingRate: '5.86%',
+                rank_status: 'rising',
+                job_status: 'rising',
+                wage_status: 'rising'
+            },
+            '7': {
+                industryName: '后端',
+                wageIncreasingRate: '1.78%',
+                jobIncreasingRate: '1.39%',
+                rank_status: 'droping',
+                job_status: 'rising',
+                wage_status: 'rising'
+            },
+            '8': {
+                industryName: '运维',
+                wageIncreasingRate: '-2.46%',
+                jobIncreasingRate: '4.27%',
+                rank_status: 'rising',
+                job_status: 'rising',
+                wage_status: 'droping'
+            },
+            '9': {
                 industryName: '人事',
-                wageIncreasingRate: '4.2%',
-                jobIncreasingRate: '4.7%',
+                wageIncreasingRate: '-2.11%',
+                jobIncreasingRate: '1.50%',
                 rank_status: 'droping',
                 job_status: 'rising',
                 wage_status: 'droping'
             },
-            '7': {
-                industryName: '设计',
-                wageIncreasingRate: '3.5%',
-                jobIncreasingRate: '3.3%',
-                rank_status: 'rising',
-                job_status: 'droping',
-                wage_status: 'rising'
-            },
-            '8': {
-                industryName: '销售',
-                wageIncreasingRate: '3.1%',
-                jobIncreasingRate: '3.0%',
-                rank_status: 'rising',
-                job_status: 'droping',
-                wage_status: 'rising'
-            },
-            '9': {
-                industryName: '物流',
-                wageIncreasingRate: '1.8%',
-                jobIncreasingRate: '2.2%',
-                rank_status: 'rising',
-                job_status: 'rising',
-                wage_status: 'rising'
-            }
+
+
         }
     }
     for (let key in data.industryList) {
@@ -1261,10 +1266,10 @@ function getInIndustryPredictLine() {
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 var chart_data = data.cityPie;
-                var map = {num: '岗位数量', salary: '薪资'};
+                var map = { num: '岗位数量', salary: '薪资' };
                 // console.log(chart_data);
                 let num_arr = [];
                 let salary_arr = [];
@@ -1288,7 +1293,7 @@ function getInIndustryPredictLine() {
                     legend: {
                         data: ['num', 'salary'],
                         left: 10,
-                        formatter: function (name) {
+                        formatter: function(name) {
                             return map[name];
                         }
                     },
@@ -1297,15 +1302,15 @@ function getInIndustryPredictLine() {
                         realtime: true,
                         start: 65,
                         end: 85
-                    },{
+                    }, {
                         type: 'inside',
-                            realtime: true,
-                            start: 65,
-                            end: 85
+                        realtime: true,
+                        start: 65,
+                        end: 85
                     }],
                     tooltip: {
                         trigger: 'axis',
-                        formatter: function (data) {
+                        formatter: function(data) {
                             var tip = data[0].value['date'] + '<br/>' + '岗位数量: ' + data[0].value['num'] + '<br/>' + '薪资: ' + data[0].value['salary'];
                             return tip;
                         }
@@ -1359,7 +1364,7 @@ function getInIndustryPredictLine() {
                     }, {
                         type: 'line',
                         yAxisIndex: 1,
-                    },]
+                    }, ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
                 industry_predict_line.setOption(industry_predict_line_option);
@@ -1379,10 +1384,10 @@ function getInCityPredictLine() {
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 var chart_data = data.cityPie;
-                var map = {num: '岗位数量', salary: '薪资'};
+                var map = { num: '岗位数量', salary: '薪资' };
                 // console.log(chart_data);
                 let num_arr = [];
                 let salary_arr = [];
@@ -1406,7 +1411,7 @@ function getInCityPredictLine() {
                     legend: {
                         data: ['num', 'salary'],
                         left: 10,
-                        formatter: function (name) {
+                        formatter: function(name) {
                             return map[name];
                         }
                     },
@@ -1415,7 +1420,7 @@ function getInCityPredictLine() {
                         realtime: true,
                         start: 65,
                         end: 85
-                    },{
+                    }, {
                         type: 'inside',
                         realtime: true,
                         start: 65,
@@ -1423,7 +1428,7 @@ function getInCityPredictLine() {
                     }],
                     tooltip: {
                         trigger: 'axis',
-                        formatter: function (data) {
+                        formatter: function(data) {
                             var tip = data[0].value['date'] + '<br/>' + '岗位数量: ' + data[0].value['num'] + '<br/>' + '薪资: ' + data[0].value['salary'];
                             return tip;
                         }
@@ -1477,7 +1482,7 @@ function getInCityPredictLine() {
                     }, {
                         type: 'line',
                         yAxisIndex: 1,
-                    },]
+                    }, ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
                 city_predict_line.setOption(city_predict_line_option);
@@ -1496,10 +1501,10 @@ function getInEducationPredictLine() {
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 var chart_data = data.cityPie;
-                var map = {num: '岗位数量', salary: '薪资'};
+                var map = { num: '岗位数量', salary: '薪资' };
                 // console.log(chart_data);
                 let num_arr = [];
                 let salary_arr = [];
@@ -1523,7 +1528,7 @@ function getInEducationPredictLine() {
                     legend: {
                         data: ['num', 'salary'],
                         left: 10,
-                        formatter: function (name) {
+                        formatter: function(name) {
                             return map[name];
                         }
                     },
@@ -1532,7 +1537,7 @@ function getInEducationPredictLine() {
                         realtime: true,
                         start: 65,
                         end: 85
-                    },{
+                    }, {
                         type: 'inside',
                         realtime: true,
                         start: 65,
@@ -1540,7 +1545,7 @@ function getInEducationPredictLine() {
                     }],
                     tooltip: {
                         trigger: 'axis',
-                        formatter: function (data) {
+                        formatter: function(data) {
                             var tip = data[0].value['date'] + '<br/>' + '岗位数量: ' + data[0].value['num'] + '<br/>' + '薪资: ' + data[0].value['salary'];
                             return tip;
                         }
@@ -1594,7 +1599,7 @@ function getInEducationPredictLine() {
                     }, {
                         type: 'line',
                         yAxisIndex: 1,
-                    },]
+                    }, ]
                 };
                 // 使用刚指定的配置项和数据显示图表。
                 education_predict_line.setOption(education_predict_line_option);
@@ -1607,16 +1612,16 @@ function getInEducationPredictLine() {
 
 //以下为数据监控页面相关内容
 //数据监控页面各行业岗位薪资和岗位数查询次数
-function getInIndustryWageAndJobQueryStack(){
+function getInIndustryWageAndJobQueryStack() {
     $.ajax({
         url: "http://114.55.245.217:5000/getIndustryBuried",
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 var chart_data = data.cityPie;
-                var map = {num: '岗位数量', wage: '薪资'};
+                var map = { num: '岗位数量', wage: '薪资' };
                 var industry_wage_and_job_query_stack = echarts.init(document.getElementById('industry_wage_and_job_query_stack'), 'light');
                 var industry_wage_and_job_query_stack_option = {
                     title: {
@@ -1626,7 +1631,7 @@ function getInIndustryWageAndJobQueryStack(){
                     },
                     tooltip: {
                         trigger: 'axis',
-                        formatter: function(data){
+                        formatter: function(data) {
                             var tip = data[0].value['name'] + '<br/>' + '岗位数量: ' + data[0].value['num'] + '<br/>' + '薪资: ' + data[0].value['wage'];
                             return tip;
                         }
@@ -1652,7 +1657,7 @@ function getInIndustryWageAndJobQueryStack(){
                     legend: {
                         data: ['num', 'wage'],
                         left: 10,
-                        formatter:  function(name){
+                        formatter: function(name) {
                             return map[name];
                         }
                     },
@@ -1693,13 +1698,13 @@ function getInIndustryWageAndJobQueryStack(){
 }
 
 //数据监控页面各城市行业薪资和岗位数量查询次数
-function getInCityWageAndJobQueryBar(){
+function getInCityWageAndJobQueryBar() {
     $.ajax({
         url: "http://114.55.245.217:5000/getCityBuried",
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 var chart_data = data.cityPie;
                 var city_wage_and_job_query_bar = echarts.init(document.getElementById('city_wage_and_job_query_bar'), 'light');
@@ -1740,7 +1745,7 @@ function getInCityWageAndJobQueryBar(){
                         bottom: '3%',
                         containLabel: true
                     },
-                    dataset:{
+                    dataset: {
                         dimensions: ['name', 'value'],
                         source: chart_data
                     },
@@ -1768,7 +1773,7 @@ function getInCityWageAndJobQueryBar(){
 }
 
 //数据监控页面不同学历的用户对城市与行业的倾向图点击查询
-function getInCityIndustryEducationQueryStack(){
+function getInCityIndustryEducationQueryStack() {
     var city = document.getElementById('city_select_4').value;
     var sel_in = '?location=' + city;
     $.ajax({
@@ -1776,22 +1781,21 @@ function getInCityIndustryEducationQueryStack(){
         type: "get",
         data: {},
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             if (data.code == 1) {
                 var chart_data = data.eduPie[0];
 
                 var industry_list = ['前端', '后端', '运维', '数据', '产品', '运营', '设计', '销售', '人事', '物流', '市场', '金融', '医疗健康', '高级管理', '其他'];
                 var education_list = ['大专', '本科', '硕士', '博士'];
                 var education_per_list = [];
-                education_list.forEach(function(education){
+                education_list.forEach(function(education) {
                     education_per_list[education] = [];
                 });
-                industry_list.forEach(function(industry){
-                    education_list.forEach(function(education){
-                        if (chart_data[industry].hasOwnProperty(education)){
+                industry_list.forEach(function(industry) {
+                    education_list.forEach(function(education) {
+                        if (chart_data[industry].hasOwnProperty(education)) {
                             education_per_list[education].push(chart_data[industry][education])
-                        }
-                        else{
+                        } else {
                             education_per_list[education].push(0);
                         }
                     })
