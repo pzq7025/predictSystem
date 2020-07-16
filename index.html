@@ -121,12 +121,12 @@
                 <div class="row" style="margin: 30px;">
                     <div id="industry_choice" class="col-md-3 bg-white has-shadow" style="margin-right: 15px;width: 22%;height:400px;">
                         <p>请输入查询的行业名</p>
-                        <input id="industry_select_1" type="text" list="sexlist" class="industry_select" value="前端" onclick="this.value=''" onblur="this.value=setIndustryDefault(this)">
+                        <input class="industry_select" id="industry_select_1" type="text" list="sexlist" value="前端" onclick="this.value=''" onblur="this.value=setIndustryDefault(this)">
                         <datalist id="sexlist">
                             <option>前端</option>
                             <option>后端</option>
                             <option>运维</option>
-                            <option>算法</option>
+                            <option>数据</option>
                             <option>产品</option>
                             <option>运营</option>
                             <option>设计</option>
@@ -145,7 +145,7 @@
                             <!-- <p><br/>此处为您显示检索历史</p> 加这句话要调整tagcloud的margin-top: -150px;-->
                             <div class="tagcloud ">
                                 <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">设计</a>
-                                <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">算法</a>
+                                <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">数据</a>
                                 <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">前端</a>
                                 <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">运维</a>
                                 <a href="javascript:void(0)" onclick="changeInput_industry_select_1(this)">产品</a>
@@ -158,9 +158,9 @@
 
                     </div>
                     <div class="col-md-3  col-12">
-                        <div id="word_colud" class="d-flex bg-white has-shadow" style="vertical-align: middle;text-align: center;width: 100%;height:300px;">
+                        <div id="words_colud" class="d-flex bg-white has-shadow" style="vertical-align: middle;text-align: center;width: 100%;height:300px;">
 <!--                            <h3>词云</h3>-->
-                            <img style="width: 240px;margin: 0 auto;" src="./fonts/words_cloud.png"></i>
+                            <img style="width: 240px;margin: 0 auto;" src="./fonts/words_cloud.jpg"></i>
                             <!-- <div class="wrapper">
                                 <div class="tagcloud ">
                                     <a href="#">关键词1</a>
@@ -223,12 +223,12 @@
                 </div>
                 <div class="bg-white has-shadow" style="width:1194px;height:400px;margin: 30px;">
                     <div class="row" style="margin-left: 2px;">
-                        <input class="cityinput col-md-3 " style="width: 330px;height: 35px;font-size: 14px;font-weight: 700;margin:10px " id="city_select_3" value="上海" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
+                        <input class="cityinput col-md-3 " style="width: 330px;height: 35px;font-size: 14px;font-weight: 700;margin:10px " id="city_select_3" value="北京" onclick="this.value=''" onblur="this.value=setCityDefault(this)">
                         <select class="industry_select col-md-3" style="width: 330px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" name="industry_select_3" id="industry_select_3">
                             <option selected>前端</option>
                             <option>后端</option>
                             <option>运维</option>
-                            <option>算法</option>
+                            <option>数据</option>
                             <option>产品</option>
                             <option>运营</option>
                             <option>设计</option>
@@ -282,10 +282,9 @@
         </div>
         <!-- 数据预测 -->
         <div id="data_predict" class="container" style="display:none;width: 1300px;margin-left: 145px;">
-            <div class="col-sm-6 col-lg-6 bg-white has-shadow" style="width: 43%;height: 510px;margin-left: 30px;margin-right: 20px;margin-top: 30px;margin-bottom: 30px;">
+            <div class="col-sm-6 col-lg-6 bg-white has-shadow" style="width: 43%;height: 540px;margin-left: 30px;margin-right: 20px;margin-top: 30px;margin-bottom: 30px;">
                 <div class="d-flex align-items-center" style="margin-left: 30px">
-                    <div class="icon_rank bg-red"><img style="width: 30px;" src="./fonts/prevailing_cities.svg"></i>
-                    </div>
+                    <div class="icon bg-red"><img style="width: 40px;" src="./fonts/city.svg"></div>
                     <div class="title"><span><strong>Top 10 热门城市</strong></span></div>
                 </div>
                 <div class="card-body">
@@ -306,10 +305,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-6 bg-white has-shadow" style="width: 43%;height: 510px;margin-left: 20px;margin-right: 30px;margin-top: 30px;margin-bottom: 30px;">
+            <div class="col-sm-6 col-lg-6 bg-white has-shadow" style="width: 43%;height: 540px;margin-left: 20px;margin-right: 30px;margin-top: 30px;margin-bottom: 30px;">
                 <div class="d-flex align-items-center" style="margin-left: 30px">
-                    <div class="icon_rank bg-red"><img style="width: 30px;" src="./fonts/prevailing_industries.svg"></i>
-                    </div>
+                    <div class="icon bg-green"><img style="width: 40px;" src="./fonts/industry.svg"></div>
                     <div class="title"><span><strong>Top 10 热门行业</strong></span></div>
                 </div>
                 <div class="card-body">
@@ -333,11 +331,12 @@
             <div class="row" style="margin: 30px;">
                 <div id="industry_predict_choice" class="col-lg-4 bg-white has-shadow" style="width: 25%;height:400px;">
                     <p>请输入查询的行业名</p>
-                    <input class="industry_select" type="text" list="sexlist_2" id="industry_select_2" value="前端" onclick="this.value=''" onblur="this.value=setIndustryDefault(this)">
+                    <input class="industry_select" id="industry_select_2" type="text" list="sexlist_2" value="前端" onclick="this.value=''" onblur="this.value=setIndustryDefault(this)">
                     <datalist id="sexlist_2">
                         <option>前端</option>
+                        <option>后端</option>
                         <option>运维</option>
-                        <option>算法</option>
+                        <option>数据</option>
                         <option>产品</option>
                         <option>运营</option>
                         <option>设计</option>
@@ -356,7 +355,7 @@
                         <!-- <p><br/>此处为您显示检索历史</p> 加这句话要调整tagcloud的margin-top: -150px;-->
                         <div class="tagcloud " style="margin-left: -100px;">
                             <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">设计</a>
-                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">算法</a>
+                            <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">数据</a>
                             <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">前端</a>
                             <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">运维</a>
                             <a href="javascript:void(0)" onclick="changeInput_industry_select_2(this)">产品</a>
@@ -387,7 +386,7 @@
             </div>
             <div class="col-lg-12 bg-white has-shadow" style="width: 89%;height:500px;margin: 30px;">
                 <div class="row" style="margin-left: 2px;">
-                    <select class="time_span_select_1 col-md-3" style="width: 330px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" value="本科" id="education_select_2">
+                    <select class="time_span_select_1 col-md-3" style="width: 125px;height: 35px;margin:10px;border: 1px solid #D8D8D8;border-radius:3px;font-size: 14px;font-weight: 700;padding-left: 2px;" value="本科" id="education_select_2">
                         <option value="博士">博士</option>
                         <option value="硕士">硕士</option>
                         <option value="本科" selected>本科</option>
@@ -448,8 +447,8 @@
     <script src="./js/map.js"></script>
     <script src="./js/provinces.js"></script>
     <script src="./js/tagcloud.js"></script>
-    <script src="./js/data.js"></script>
     <script src="dist/echarts.js"></script>
+    <script src="./js/data.js"></script>
     <script src="map/js/china.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
