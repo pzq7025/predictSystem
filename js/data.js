@@ -9,8 +9,8 @@ window.onload = function() {
     getInCityCompound('default');
     getInList('default');
     //数据预测界面
-    getInPrevailingCities(); // 等待接口
-    getInPrevailingIndustries(); // 等待接口
+    getInPrevailingCities();
+    getInPrevailingIndustries();
     getInIndustryPredictLine();
     getInCityPredictLine();
     getInEducationPredictLine();
